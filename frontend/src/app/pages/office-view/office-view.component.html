@@ -1,0 +1,69 @@
+<div class="centered-content">
+    <div class="office-manager-container">
+        <div class="sidebar">
+            <h1 class="title has-text-primary">
+                Companies
+            </h1>
+            <div class="company-menu">
+                <a class="company-menu-item" *ngFor="let company of companies"
+                    [routerLink]="['/company', company._id, 'offices']" routerLinkActive="is-active">
+                    <p class="white-text">
+                        {{ company.name }}
+                        <span class="pull-right office-delete btn-rounded-corners"
+                            (click)="deleteCompany(company)">X</span>
+                    </p>
+                </a>
+            </div>
+            <button class="btn btn-primary btn-round-corners" routerLink="/new-company">Add Company</button>
+        </div>
+
+        <div class="office-company-container">
+            <h1 class="title has-text-primary">
+                Offices
+            </h1>
+            <div class="office-menu">
+                <a class="office office-menu-item" *ngFor="let office of offices" routerLinkActive="is-active" <!--
+                    (click)="getEmployees(office)" -->
+                    [routerLink]="['/company', company._id, 'offices', office._id, 'employees']">
+                    <p class="white-text">
+                        {{ [office.streetName, office.cityName] }}
+                        <span class="pull-right office-delete btn-rounded-corners"
+                            (click)="deleteOffice(office)">X</span>
+                    </p>
+                </a>
+                <button class="btn btn-primary add-button" (click)="addOfficeClick()">
+                    Add Office
+                </button>
+            </div>
+
+
+
+
+
+
+
+
+        </div>
+        <div class="employee-office-container">
+            <h1 class="title has-text-primary">
+                Employees
+            </h1>
+
+            <div class="employee emplyee-menu-item" *ngFor="let employee of employees">
+                <p>
+                    {{ [employee.firstName, employee.lastName] }}
+                    <!-- <span class="pull-right office-delete btn-rounded-corners" (click)="deleteEmployee(employee)" -->
+                    <span class="pull-right office-delete btn-rounded-corners" routerLink="../">X</span>
+                </p>
+            </div>
+            <!-- <button class="btn btn-primary add-button" (click)="addEmployeeClick()"> -->
+            <button class="btn btn-primary add-button">
+                Add Employee
+            </button>
+            <!-- <button class="btn btn-primary relocate-button" (click)="relocateEmployee(employee)"
+                routerLink="/relocate-employee">
+                Relocate
+            </button> -->
+        </div>
+    </div>
+</div>

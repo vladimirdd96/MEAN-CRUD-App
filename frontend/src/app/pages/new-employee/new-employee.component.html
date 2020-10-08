@@ -1,0 +1,24 @@
+<div class="centered-content">
+    <div class="model-box form-group">
+        <h1 class="title">Create a new employee item</h1>
+        <input #employeeFirstNameInput nametype="text" class="form-control has-background-light"
+            placeholder="Enter first name">
+        <input #employeeLastNameInput nametype="text" class="form-control has-background-light"
+            placeholder="Enter last name">
+        <input #employeeStaringDateInput nametype="text" class="form-control has-background-light"
+            placeholder="Enter starting date">
+        <input #employeeSalaryInput nametype="text" class="form-control has-background-light"
+            placeholder="Enter salary">
+        <input #employeeVacationDaysInput nametype="text" class="form-control has-background-light"
+            placeholder="Enter vacation days">
+        <input #employeeExperienceInput nametype="text" class="form-control has-background-light"
+            placeholder="Enter experience {junior, mid, senior}">
+        <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+        <button (click)="fileInput.click()">Select File</button>
+        <button (click)="onUpload()">Upload!</button>
+
+        <button class="btn btn-white-text" routerLink='../'>Cansel</button>
+        <button class="btn btn-primary"
+            (click)="addEmployee(employeeFirstNameInput.value, employeeLastNameInput.value, employeeStaringDateInput.value, employeeSalaryInput.value, employeeVacationDaysInput.value, employeeExperienceInput.value)">Add</button>
+    </div>
+</div>

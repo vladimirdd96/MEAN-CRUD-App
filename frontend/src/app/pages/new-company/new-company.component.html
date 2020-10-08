@@ -1,0 +1,13 @@
+<p>new-company works!</p>
+<div class="centered-content">
+    <div class="model-box form-group">
+        <h1 class="title">Create a new company</h1>
+        <input #companyNameInput type="text" class="form-control has-background-light" placeholder="Enter company name">
+        <input #companyCreationDateInput type="text" class="form-control has-background-light"
+            placeholder="Enter creation date (optional)">
+
+        <button class="btn btn-white-text" routerLink='/'>Cansel</button>
+        <button class="btn btn-primary"
+            (click)="addCompany(companyNameInput.value, companyCreationDateInput.value)">Add</button>
+    </div>
+</div>
