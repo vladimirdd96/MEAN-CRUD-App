@@ -13,12 +13,12 @@
             placeholder="Enter vacation days">
         <input #employeeExperienceInput nametype="text" class="form-control has-background-light"
             placeholder="Enter experience {junior, mid, senior}">
-        <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+        <!-- <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
         <button (click)="fileInput.click()">Select File</button>
-        <button (click)="onUpload()">Upload!</button>
+        <button (click)="onUpload()">Upload!</button> -->
 
         <button class="btn btn-white-text" routerLink='../'>Cansel</button>
-        <button class="btn btn-primary"
-            (click)="addEmployee(employeeFirstNameInput.value, employeeLastNameInput.value, employeeStaringDateInput.value, employeeSalaryInput.value, employeeVacationDaysInput.value, employeeExperienceInput.value)">Add</button>
+        <!-- <button class="btn btn-primary"
+            (click)="addEmployee(employeeFirstNameInput.value, employeeLastNameInput.value, employeeStaringDateInput.value, employeeSalaryInput.value, employeeVacationDaysInput.value, employeeExperienceInput.value)">Add</button> -->
     </div>
 </div>

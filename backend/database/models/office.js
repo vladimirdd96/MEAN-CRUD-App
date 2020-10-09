@@ -13,7 +13,7 @@ const OfficesSchema = new Schema({
         type: Schema.Types.ObjectId,
         required: false
     },
-    ifHeadquarters: {
+    headquarters: {
         type: Boolean,
         default: false,
         required: true

@@ -7,7 +7,7 @@
             <div class="company-menu">
                 <a class="company-menu-item" *ngFor="let company of companies"
                     [routerLink]="['/company', company._id, 'offices']" routerLinkActive="is-active">
-                    <p class="white-text">
+                    <p class="white-text" (click)="getOffices()">
                         {{ company.name }}
                         <span class="pull-right office-delete btn-rounded-corners"
                             (click)="deleteCompany(company)">X</span>
@@ -22,9 +22,8 @@
                 Offices
             </h1>
             <div class="office-menu">
-                <a class="office office-menu-item" *ngFor="let office of offices" routerLinkActive="is-active" <!--
-                    (click)="getEmployees(office)" -->
-                    [routerLink]="['/company', company._id, 'offices', office._id, 'employees']">
+                <a class="office office-menu-item" *ngFor="let office of offices" routerLinkActive="is-active"
+                    (click)="getEmployee()" [routerLink]="['/company', companyId, 'offices', office._id, 'employees']">
                     <p class="white-text">
                         {{ [office.streetName, office.cityName] }}
                         <span class="pull-right office-delete btn-rounded-corners"
@@ -52,18 +51,13 @@
             <div class="employee emplyee-menu-item" *ngFor="let employee of employees">
                 <p>
                     {{ [employee.firstName, employee.lastName] }}
-                    <!-- <span class="pull-right office-delete btn-rounded-corners" (click)="deleteEmployee(employee)" -->
-                    <span class="pull-right office-delete btn-rounded-corners" routerLink="../">X</span>
+                    <span class="pull-right office-delete btn-rounded-corners" (click)="deleteEmployee(employee)"
+                        routerLink="../">X</span>
                 </p>
             </div>
-            <!-- <button class="btn btn-primary add-button" (click)="addEmployeeClick()"> -->
-            <button class="btn btn-primary add-button">
+            <button class="btn btn-primary add-button" (click)="addEmployeeClick()">
                 Add Employee
             </button>
-            <!-- <button class="btn btn-primary relocate-button" (click)="relocateEmployee(employee)"
-                routerLink="/relocate-employee">
-                Relocate
-            </button> -->
         </div>
     </div>
 </div>

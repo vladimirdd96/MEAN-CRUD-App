@@ -1,1 +1,18 @@
-<p>new-office works!</p>
+<div class="centered-content">
+    <div class="model-box form-group">
+        <h1 class="title">Create a new office item</h1>
+        <input #countryNameInput nametype="text" class="form-control has-background-light"
+            placeholder="Enter country name">
+        <input #cityNameInput nametype="text" class="form-control has-background-light" placeholder="Enter city name">
+        <input #streetNameInput nametype="text" class="form-control has-background-light"
+            placeholder="Enter street name">
+        <input #streetNumberInput nametype="text" class="form-control has-background-light"
+            placeholder="Enter streetNumber">
+        <input #ifHeadquartersInput nametype="text" class="form-control has-background-light"
+            placeholder="Enter if it's the headquarters (optional)">
+
+        <button class="btn btn-white-text" routerLink='../'>Cansel</button>
+        <!-- <button class="btn btn-primary"
+            (click)="addOffice(countryNameInput.value, cityNameInput.value, streetNameInput.value, streetNumberInput.value, ifHeadquartersInput.value)">Add</button> -->
+    </div>
+</div>

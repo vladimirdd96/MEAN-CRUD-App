@@ -4,7 +4,7 @@ export default class Office {
     cityName: string
     streetName: string
     streetNumber: string
-    ifHeadquarters: boolean
+    headquarters: boolean
     _companyId: string
     _employeeId: string[]
 }
