@@ -8,9 +8,10 @@ const OfficesSchema = new Schema({
     countryName: String,
     cityName: String,
     streetName: String,
-    streetNumber: String,
+    streetNumber: Number,
     _companyId: {
         type: Schema.Types.ObjectId,
+        ref: 'Company',
         required: false
     },
     headquarters: {

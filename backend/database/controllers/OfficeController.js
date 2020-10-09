@@ -3,6 +3,7 @@ const EmployeeModel = require('../models/employee')
 
 const OfficeController = {
     findAll: (req, res) => {
+        console.log('getting office');
         OfficeModel.find({})
             .then((office) => { res.send(office) })
             .catch((err) => console.log(err))
@@ -15,6 +16,7 @@ const OfficeController = {
     },
 
     create: (req, res) => {
+        console.log('creating office');
         (new OfficeModel({
             'countryName': req.body.countryName,
             'cityName': req.body.cityName,
@@ -29,18 +31,20 @@ const OfficeController = {
     },
 
     update: (req, res) => {
+        console.log('updating office');
         OfficeModel.findOneAndUpdate({ _id: req.params.officeId }, { $set: req.body }, { useFindAndModify: false, returnOriginal: false })
             .then(office => res.send(office))
             .catch(err => console.log(err))
     },
 
     delete: (req, res) => {
+        console.log('deleting office')
         // const deleteEmployee = office => {
         //     EmployeeModel.deleteMany({ _officeId: office._id })
         //         .then(() => office)
         //         .catch(err => console.log(err))
         // }
-        OfficeModel.findByIdAndRemove(req.params.officeId, useFindAndModify = false)
+        OfficeModel.findByIdAndRemove(req.params.officeId)
             .then((office) => res.send(office))
             // .then((office) => res.send(d1eleteEmployee(office)))
             .catch((err) => console.log(err))

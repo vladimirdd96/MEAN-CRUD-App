@@ -7,14 +7,14 @@
             <div class="company-menu">
                 <a class="company-menu-item" *ngFor="let company of companies"
                     [routerLink]="['/company', company._id, 'offices']" routerLinkActive="is-active">
-                    <p class="white-text" (click)="getOffices()">
+                    <p class="white-text" (click)="getOffices(company)">
                         {{ company.name }}
                         <span class="pull-right office-delete btn-rounded-corners"
                             (click)="deleteCompany(company)">X</span>
                     </p>
                 </a>
             </div>
-            <button class="btn btn-primary btn-round-corners" routerLink="/new-company">Add Company</button>
+            <button class="btn btn-primary btn-round-corners" routerLink="/company/new-company">Add Company</button>
         </div>
 
         <div class="office-company-container">
@@ -23,7 +23,7 @@
             </h1>
             <div class="office-menu">
                 <a class="office office-menu-item" *ngFor="let office of offices" routerLinkActive="is-active"
-                    (click)="getEmployee()" [routerLink]="['/company', companyId, 'offices', office._id, 'employees']">
+                    (click)="getEmployees(office)">
                     <p class="white-text">
                         {{ [office.streetName, office.cityName] }}
                         <span class="pull-right office-delete btn-rounded-corners"
@@ -51,6 +51,7 @@
             <div class="employee emplyee-menu-item" *ngFor="let employee of employees">
                 <p>
                     {{ [employee.firstName, employee.lastName] }}
+                    (click)="relocateEmployee(employee)"
                     <span class="pull-right office-delete btn-rounded-corners" (click)="deleteEmployee(employee)"
                         routerLink="../">X</span>
                 </p>

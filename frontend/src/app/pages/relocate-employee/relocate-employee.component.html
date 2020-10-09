@@ -1,1 +1,13 @@
-<p>relocate-employee works!</p>
+<div class="centered-content">
+    <div class="model-box form-group">
+        <h1 class="title">Relocate Employee</h1>
+        <input #OfficeCityInput nametype="text" class="form-control has-background-light"
+            placeholder="Enter if it's the headquarters (optional)">
+        <input #OfficeStreetInput nametype="text" class="form-control has-background-light"
+            placeholder="Enter if it's the headquarters (optional)">
+
+        <button class="btn btn-white-text" (click)="canselClick()">Cansel</button>
+        <button class="btn btn-primary"
+            (click)="relocateEmployee(OfficeCityInput.value, OfficeStreetInput.value)">Add</button>
+    </div>
+</div>

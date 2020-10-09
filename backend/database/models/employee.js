@@ -4,7 +4,10 @@ const Schema = mongoose.Schema;
 const EmployeeScheema = new Schema({
     firstName: String,
     lastName: String,
-    startingDate: Date,
+    startingDate: {
+        type: Date,
+        default: Date.now,
+    },
     salary: Number,
     vacationDays: Number,
     experience: {
@@ -24,6 +27,7 @@ const EmployeeScheema = new Schema({
     // },
     _officeId: {
         type: Schema.Types.ObjectId,
+        ref: 'Offices',
         required: false
     },
 });

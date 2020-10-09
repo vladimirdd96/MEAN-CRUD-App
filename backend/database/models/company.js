@@ -3,8 +3,9 @@ const mongoose = require('mongoose')
 const CompanyScheema = new mongoose.Schema({
     name: String,
     creationDate: {
-        type: String,
-        default: Date.now
+        type: Date,
+        default: Date.now,
+        required: false
     }
 
 })
