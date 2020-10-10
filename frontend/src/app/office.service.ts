@@ -48,10 +48,22 @@ export class OfficeService {
     return this.webService.delete(`company/${companyId}/offices/${officeId}`)
   }
 
-  ifHeadquarters(companyId: string, office: Office) {
-    console.log(`ifHeadquarters ${office.streetName}, ${office.cityName}  FrontEnd`);
+  headquarters(companyId: string, offices: Office[], office: Office) {
+    if (!offices.filter(o => {
+      o._id === office._id &&
+        o.headquarters === true ||
+        offices.filter((o: Office) => o.headquarters === true).length
+    }).length) {
+      alert('Headquarter already Active ');
+      return
+    }
+    console.log('headquarters changed FrontEnd')
+
+    this.webService.patch(`company/${companyId}/offices/${office._id}`, {})
     return this.webService.patch(`company/${companyId}/offices/${office._id}`, { headquarters: !office.headquarters })
+
   }
+
 
   getEmployees(companyId: string, officeId: string) {
     console.log('getting employees FrontEnd');
@@ -83,11 +95,8 @@ export class OfficeService {
 
 
 
-  relocateEmployee(companyId: string, officeId: string, employeeId: string, officeCity: string, officeStreet: string) {
-    let offices: Office[]
-
+  relocateEmployee(companyId: string, officeId: string, employeeId: string, desiredOfficeId: string) {
     console.log('relocating employees FrontEnd');
-
-    return this.webService.patch(`company/${companyId}/offices/${officeId}/employees/${employeeId}`, { _officeId: offices.filter((o) => o.cityName === officeCity && o.streetName === officeStreet) })
+    return this.webService.patch(`company/${companyId}/offices/${officeId}/employees/${employeeId}`, { _officeId: desiredOfficeId })
   }
 }

@@ -8,6 +8,8 @@ import { OfficeViewComponent } from './pages/office-view/office-view.component';
 import { NewOfficeComponent } from './pages/new-office/new-office.component';
 import { NewEmployeeComponent } from './pages/new-employee/new-employee.component';
 import { NewCompanyComponent } from './pages/new-company/new-company.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonToggle } from '@angular/material/button-toggle/button-toggle';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,7 @@ import { NewCompanyComponent } from './pages/new-company/new-company.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

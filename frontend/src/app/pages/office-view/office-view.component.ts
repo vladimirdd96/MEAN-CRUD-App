@@ -69,6 +69,10 @@ export class OfficeViewComponent implements OnInit {
 
   }
 
+  headquarters(offices: Office[], office: Office) {
+    this.officeService.headquarters(this.companyId, offices, office)
+  }
+
   addOfficeClick() {
     if (!this.companyId) {
       alert('Please select a company to add office to!')
@@ -99,5 +103,7 @@ export class OfficeViewComponent implements OnInit {
     this.router.navigate([`./company/${this.companyId}/offices/${this.officeId}/employees/`])
   }
 
-  relocateEmployee(employee: Employee) { }
+  relocateEmployee(employee: Employee) {
+
+  }
 }

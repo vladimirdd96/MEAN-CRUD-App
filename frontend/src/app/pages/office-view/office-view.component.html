@@ -29,6 +29,8 @@
                         <span> - {{ office.cityName }}</span>
                         <span class="pull-right office-delete btn-rounded-corners"
                             (click)="deleteOffice(office)">X</span>
+                        <span class="pull-right office-delete btn-rounded-corners"
+                            (click)="headquarters(offices, office)">*</span>
                     </p>
                 </a>
                 <button class="btn btn-primary add-button" (click)="addOfficeClick()">
@@ -50,12 +52,26 @@
             </h1>
 
             <div class="employee emplyee-menu-item" *ngFor="let employee of employees">
-                <p>
-                    {{ [employee.firstName, employee.lastName] }}
-                    <!-- (click)="relocateEmployee(employee)" -->
-                    <span class="pull-right office-delete btn-rounded-corners" (click)="deleteEmployee(employee)"
-                        routerLink="../">X</span>
-                </p>
+                <div>
+                    <!-- <p (click)="relocateEmployee(employee)"> -->
+                    {{ employee.firstName }} <span> {{ employee.lastName }}</span>
+
+                    <div class="dropdown" mdbDropdown>
+
+                        <button mdbDropdownToggle mdbBtn color="primary" class="dropdown-toggle waves-light"
+                            type="button" mdbWavesEffect>
+                            Relocate
+                        </button>
+
+                        <div class="dropdown-menu dropdown-primary">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+
+                </div>
             </div>
             <button class="btn btn-primary add-button" (click)="addEmployeeClick()">
                 Add Employee

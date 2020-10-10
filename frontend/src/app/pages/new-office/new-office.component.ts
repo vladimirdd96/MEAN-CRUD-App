@@ -28,8 +28,8 @@ export class NewOfficeComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  addOffice(countryName: string, cityName: string, streetName: string, streetNumber: number, ifHeadquarters: boolean) {
-    this.officeService.createOffice(countryName, cityName, streetName, streetNumber, ifHeadquarters, this.companyId)
+  addOffice(countryName: string, cityName: string, streetName: string, streetNumber: number, headquarters: boolean) {
+    this.officeService.createOffice(countryName, cityName, streetName, streetNumber, headquarters, this.companyId)
       .subscribe((o: Office) => this.router.navigate([`./company/${this.companyId}/offices/${o._id}/employees`]))
   }
 
