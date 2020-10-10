@@ -30,10 +30,11 @@ export class NewOfficeComponent implements OnInit {
   }
   addOffice(countryName: string, cityName: string, streetName: string, streetNumber: number, ifHeadquarters: boolean) {
     this.officeService.createOffice(countryName, cityName, streetName, streetNumber, ifHeadquarters, this.companyId)
-      .subscribe((office: Office) => this.router.navigate([`../${office._id}/employees`], { relativeTo: this.route }))
+      .subscribe((o: Office) => this.router.navigate([`./company/${this.companyId}/offices/${o._id}/employees`]))
   }
 
   canselClick() {
     this.router.navigate(['../'], { relativeTo: this.route })
   }
+
 }

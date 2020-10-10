@@ -12,9 +12,10 @@ const routes: Routes = [
   { path: 'company/:companyId/offices/:officeId/employees', component: OfficeViewComponent },
   { path: 'company/:companyId/offices/:officeId/employees/:employeeId', component: OfficeViewComponent },
   { path: 'company/new-company', component: NewCompanyComponent },
-  { path: 'company/:companyId/offices/new-office', component: NewOfficeComponent },
-  { path: 'company/:companyId/offices/:officeId/employees/new-employee', component: NewEmployeeComponent },
-];
+  { path: 'company/:companyId/new-office', component: NewOfficeComponent },
+  { path: 'company/:companyId/offices/:officeId/new-employee', component: NewEmployeeComponent },
+  { path: '**', redirectTo: '/company', pathMatch: 'full' },
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import Employee from 'src/app/models/employee';
 import { OfficeService } from 'src/app/office.service';
 
 @Component({
@@ -42,7 +43,17 @@ export class NewEmployeeComponent implements OnInit {
         mid: 'mid',
         senior: 'senior',
       }) {
-    this.officeService.createEmployee(firstName, lastName, startingDate, salary, vacationDays, experience, this.officeId, this.companyId).subscribe(() => this.router.navigate(['../'], { relativeTo: this.route }))
+    this.officeService.createEmployee(
+      firstName,
+      lastName,
+      startingDate,
+      salary,
+      vacationDays,
+      experience,
+      this.officeId,
+      this.companyId
+    )
+      .subscribe((e: Employee) => this.router.navigate([`./company/${this.companyId}/offices/${this.officeId}/employees/${e._id}`]))
   }
 
   onFileChanged(event) {

@@ -8,9 +8,9 @@ describe('OfficeViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OfficeViewComponent ]
+      declarations: [OfficeViewComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

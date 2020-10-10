@@ -22,10 +22,11 @@
                 Offices
             </h1>
             <div class="office-menu">
-                <a class="office office-menu-item" *ngFor="let office of offices" routerLinkActive="is-active"
-                    (click)="getEmployees(office)">
-                    <p class="white-text">
-                        {{ [office.streetName, office.cityName] }}
+                <a class="office office-menu-item" [ngClass]="{'is-active':office.headquarters === true}"
+                    *ngFor="let office of offices">
+                    <p class="white-text" (click)="getEmployees(office._id)">
+                        {{ office.streetName }}
+                        <span> - {{ office.cityName }}</span>
                         <span class="pull-right office-delete btn-rounded-corners"
                             (click)="deleteOffice(office)">X</span>
                     </p>
@@ -51,7 +52,7 @@
             <div class="employee emplyee-menu-item" *ngFor="let employee of employees">
                 <p>
                     {{ [employee.firstName, employee.lastName] }}
-                    (click)="relocateEmployee(employee)"
+                    <!-- (click)="relocateEmployee(employee)" -->
                     <span class="pull-right office-delete btn-rounded-corners" (click)="deleteEmployee(employee)"
                         routerLink="../">X</span>
                 </p>

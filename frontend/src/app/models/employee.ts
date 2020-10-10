@@ -10,5 +10,5 @@ export default class Employee {
         mid: 'mid'
         senior: 'senior'
     }
-    _officesId: string
+    _officeId: string
 }

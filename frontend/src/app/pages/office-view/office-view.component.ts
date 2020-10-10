@@ -35,11 +35,15 @@ export class OfficeViewComponent implements OnInit {
       this.officeId = params.officeId;
       this.employeeId = params.employeeId;
       if (!this.companyId) return
-      this.officeService.getOfficees(this.companyId).subscribe((offices: Office[]) => this.offices = offices)
-      if (!this.officeId) return
+      this.officeService.getOfficees(this.companyId).subscribe((offices: Office[]) => {
+        this.offices = offices = offices.filter((o) => o._companyId === this.companyId)
+      })
+      if (!this.officeId || !this.companyId) return
       this.officeService.getEmployees(this.companyId, this.officeId).subscribe((employees: Employee[]) => this.employees = employees)
     })
   }
+
+  //Company
 
   deleteCompany(company: Company) {
     this.officeService.deleteCompany(company._id)
@@ -49,12 +53,16 @@ export class OfficeViewComponent implements OnInit {
       })
   }
 
-
-
-  getOffices(company) {
-    this.officeService.getOfficees(company).subscribe((offices: Office[]) => this.offices = offices)
+  getOffices(companyId: string) {
+    if (!companyId) return
+    this.officeService.getOfficees(companyId).subscribe((offices: Office[]) => {
+      this.offices = offices = offices.filter((o) => o._companyId === companyId)
+    })
 
   }
+
+  //Office
+
   deleteOffice(office: Office) {
     this.officeService.deleteOffice(this.companyId, office._id)
       .subscribe((_office: Company) => this.offices = this.offices.filter(c => c._id !== _office._id))
@@ -66,26 +74,29 @@ export class OfficeViewComponent implements OnInit {
       alert('Please select a company to add office to!')
       return;
     }
-    this.router.navigate([`./new-office`], { relativeTo: this.route })
+    this.router.navigate([`./company/${this.companyId}/new-office`])
   }
 
-
-
-  getEmployees(office: Office) {
-    this.officeService.getEmployees(this.companyId, office._id).subscribe((employees: Employee[]) => this.employees = employees)
-    this.router.navigate([`./${office._id}/employees`], { relativeTo: this.route })
+  getEmployees(officeId: string) {
+    if (!officeId) return
+    this.officeService.getEmployees(this.companyId, officeId).subscribe((employees: Employee[]) => this.employees = employees
+      .filter((employee: Employee) => employee._officeId === officeId))
+    this.router.navigate([`./company/${this.companyId}/offices/${officeId}/employees`])
   }
+
+  //Employee
 
   addEmployeeClick() {
     if (!this.companyId || !this.officeId) {
-      alert('Please select a company to add office to!');
+      alert('Please select a office to add employee to!');
       return
     }
-    this.router.navigate(['./new-employee'], { relativeTo: this.route })
+    this.router.navigate([`./company/${this.companyId}/offices/${this.officeId}/new-employee`])
   }
 
   deleteEmployee(employee: Employee) {
-    this.officeService.deleteEmployee(this.companyId, this.officeId, employee._id).subscribe((employee: Employee) => this.employees.filter(e => e._id !== employee._id))
+    this.officeService.deleteEmployee(this.companyId, this.officeId, employee._id).subscribe((employee: Employee) => this.employees = this.employees.filter(e => e._id !== employee._id))
+    this.router.navigate([`./company/${this.companyId}/offices/${this.officeId}/employees/`])
   }
 
   relocateEmployee(employee: Employee) { }

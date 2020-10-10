@@ -12,23 +12,23 @@ export class OfficeService {
   constructor(private webService: WebService) { }
 
   getCompanies() {
-    console.log('getting company');
+    console.log('getting company FrontEnd');
     return this.webService.get('company')
   }
 
   createCompany(name: string, creationDate: Date) {
-    console.log('creating company');
+    console.log('creating company FrontEnd');
     return this.webService.post('company', { name, creationDate })
   }
 
   deleteCompany(companyId: string) {
-    console.log('deleting company');
+    console.log('deleting company FrontEnd');
     return this.webService.delete(`company/${companyId}`)
   }
 
   getOfficees(companyId: string) {
-    console.log('geting offices');
-    return this.webService.get(`company/:${companyId}/offices`)
+    console.log('geting offices FrontEnd');
+    return this.webService.get(`company/${companyId}/offices`)
   }
 
   createOffice(
@@ -39,22 +39,22 @@ export class OfficeService {
     headquarters: boolean,
     _companyId: string
   ) {
-    console.log('creating office');
+    console.log('creating office FrontEnd');
     return this.webService.post(`company/${_companyId}/offices`, { countryName, cityName, streetName, streetNumber, headquarters, _companyId });
   }
 
   deleteOffice(companyId: string, officeId: string) {
-    console.log('deleting office');
+    console.log('deleting office FrontEnd');
     return this.webService.delete(`company/${companyId}/offices/${officeId}`)
   }
 
   ifHeadquarters(companyId: string, office: Office) {
-    console.log(`ifHeadquarters ${office.streetName}, ${office.cityName}`);
+    console.log(`ifHeadquarters ${office.streetName}, ${office.cityName}  FrontEnd`);
     return this.webService.patch(`company/${companyId}/offices/${office._id}`, { headquarters: !office.headquarters })
   }
 
   getEmployees(companyId: string, officeId: string) {
-    console.log('getting employees');
+    console.log('getting employees FrontEnd');
     return this.webService.get(`company/${companyId}/offices/${officeId}/employees`)
   }
 
@@ -72,10 +72,12 @@ export class OfficeService {
     _companyId: string,
     _officeId: string
   ) {
+    console.log('creating employee FrontEnd');
     return this.webService.post(`company/${_companyId}/offices/${_officeId}/employees`, { firstName, lastName, startingDate, salary, vacationDays, experience, _officeId })
   }
 
   deleteEmployee(companyId: string, officeId: string, employeeId: string) {
+    console.log('deleting employee FrontEnd');
     return this.webService.delete(`company/${companyId}/offices/${officeId}/employees/${employeeId}`)
   }
 
@@ -83,6 +85,8 @@ export class OfficeService {
 
   relocateEmployee(companyId: string, officeId: string, employeeId: string, officeCity: string, officeStreet: string) {
     let offices: Office[]
+
+    console.log('relocating employees FrontEnd');
 
     return this.webService.patch(`company/${companyId}/offices/${officeId}/employees/${employeeId}`, { _officeId: offices.filter((o) => o.cityName === officeCity && o.streetName === officeStreet) })
   }

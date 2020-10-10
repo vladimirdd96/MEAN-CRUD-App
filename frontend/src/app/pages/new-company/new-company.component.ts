@@ -28,7 +28,7 @@ export class NewCompanyComponent implements OnInit {
 
   addCompany(name: string, creationDate: Date) {
     this.officeService.createCompany(name, creationDate)
-      .subscribe(() => this.router.navigate([`../`]))
+      .subscribe((company: Company) => this.router.navigate([`../${company._id}/offices`], { relativeTo: this.route }))
 
   }
 
