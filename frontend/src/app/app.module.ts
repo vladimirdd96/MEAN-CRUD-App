@@ -9,7 +9,9 @@ import { NewOfficeComponent } from './pages/new-office/new-office.component';
 import { NewEmployeeComponent } from './pages/new-employee/new-employee.component';
 import { NewCompanyComponent } from './pages/new-company/new-company.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonToggle } from '@angular/material/button-toggle/button-toggle';
+import { MatExpansionModule } from '@angular/material/expansion';
+
+
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { MatButtonToggle } from '@angular/material/button-toggle/button-toggle';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MatExpansionModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

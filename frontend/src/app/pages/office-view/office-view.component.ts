@@ -21,6 +21,7 @@ export class OfficeViewComponent implements OnInit {
   officeId: string
   employeeId: string
 
+
   constructor(
     private officeService: OfficeService,
     private route: ActivatedRoute,
