@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const mongoose = require('./database/mongoose')
+
 mongoose.set('useFindAndModify', false);
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useCreateIndex', true);

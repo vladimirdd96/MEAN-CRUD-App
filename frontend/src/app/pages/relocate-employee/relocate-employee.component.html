@@ -1,13 +1,23 @@
 <div class="centered-content">
     <div class="model-box form-group">
         <h1 class="title">Relocate Employee</h1>
-        <input #OfficeCityInput nametype="text" class="form-control has-background-light"
-            placeholder="Enter if it's the headquarters (optional)">
-        <input #OfficeStreetInput nametype="text" class="form-control has-background-light"
-            placeholder="Enter if it's the headquarters (optional)">
 
+        <!-- <div>
+            <select (change)="onChange($event.target.value)">
+                <option *ngFor="let office of offices" [value]="office._id">
+                    {{ office.streetName.slice(0, 10) }} {{ office.cityName.slice(0, 8) }}
+                </option>
+            </select>
+        </div> -->
+
+
+        <select [(ngModel)]="currentOfficeId">
+            <option value="" disabled selected>Select Office</option>
+            <option *ngFor="let office of offices" [value]="office._id">
+                {{office.streetName}}</option>
+        </select>
+        <br>
         <button class="btn btn-white-text" (click)="canselClick()">Cansel</button>
-        <button class="btn btn-primary"
-            (click)="relocateEmployee(OfficeCityInput.value, OfficeStreetInput.value)">Add</button>
+        <button class="btn btn-primary" (click)="relocateEmployee(currentOfficeId)">Relocate</button>
     </div>
 </div>

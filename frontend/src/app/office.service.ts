@@ -18,6 +18,10 @@ export class OfficeService {
 
   createCompany(name: string, creationDate: Date) {
     console.log('creating company FrontEnd');
+    if (!name || !creationDate) {
+      alert('All fields are required!')
+      return
+    }
     return this.webService.post('company', { name, creationDate })
   }
 
@@ -39,6 +43,10 @@ export class OfficeService {
     headquarters: boolean,
     _companyId: string
   ) {
+    if (!countryName || !cityName || !streetName || !streetNumber) {
+      alert('All fields are required!')
+      return
+    }
     console.log('creating office FrontEnd');
     return this.webService.post(`company/${_companyId}/offices`, { countryName, cityName, streetName, streetNumber, headquarters, _companyId });
   }
@@ -84,6 +92,10 @@ export class OfficeService {
     _companyId: string,
     _officeId: string
   ) {
+    if (!firstName || !lastName || !startingDate || !salary || !vacationDays || !experience) {
+      alert('All fields are required!')
+      return
+    }
     console.log('creating employee FrontEnd');
     return this.webService.post(`company/${_companyId}/offices/${_officeId}/employees`, { firstName, lastName, startingDate, salary, vacationDays, experience, _officeId })
   }

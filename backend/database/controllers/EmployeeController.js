@@ -3,7 +3,7 @@ const EmployeeModel = require('../models/employee')
 const EmployeeController = {
     findAll: (req, res) => {
         console.log('finding all employees');
-        EmployeeModel.find({ _officeId: req.params.companyId })
+        EmployeeModel.find({ _officeId: req.params.officeId })
             .then((employee) => { res.send(employee) })
             .catch((err) => console.log(err))
     },

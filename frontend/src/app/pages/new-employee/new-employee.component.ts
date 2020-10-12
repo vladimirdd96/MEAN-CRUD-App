@@ -50,8 +50,8 @@ export class NewEmployeeComponent implements OnInit {
       salary,
       vacationDays,
       experience,
-      this.officeId,
-      this.companyId
+      this.companyId,
+      this.officeId
     )
       .subscribe((e: Employee) => this.router.navigate([`./company/${this.companyId}/offices/${this.officeId}/employees/${e._id}`]))
   }

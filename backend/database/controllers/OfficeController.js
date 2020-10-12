@@ -4,8 +4,8 @@ const EmployeeModel = require('../models/employee')
 const OfficeController = {
     findAll: (req, res) => {
         console.log('getting office');
-        OfficeModel.find({})
-            .then((office) => { res.send(office) })
+        OfficeModel.find({ _companyId: req.params.companyId })
+            .then((office) => res.send(office))
             .catch((err) => console.log(err))
     },
 

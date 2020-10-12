@@ -55,9 +55,9 @@ export class OfficeViewComponent implements OnInit {
   }
 
   getOffices(companyId: string) {
-    if (!companyId) return
+    if (!companyId || this.companyId === companyId) return
     this.officeService.getOfficees(companyId).subscribe((offices: Office[]) => {
-      this.offices = offices = offices.filter((o) => o._companyId === companyId)
+      this.offices = offices
     })
 
   }
@@ -83,7 +83,7 @@ export class OfficeViewComponent implements OnInit {
   }
 
   getEmployees(officeId: string) {
-    if (!officeId) return
+    if (!officeId || this.officeId === officeId) return
     this.officeService.getEmployees(this.companyId, officeId).subscribe((employees: Employee[]) => this.employees = employees
       .filter((employee: Employee) => employee._officeId === officeId))
     this.router.navigate([`./company/${this.companyId}/offices/${officeId}/employees`])
@@ -104,7 +104,11 @@ export class OfficeViewComponent implements OnInit {
     this.router.navigate([`./company/${this.companyId}/offices/${this.officeId}/employees/`])
   }
 
-  relocateEmployee(employee: Employee) {
-
+  relocateEmployeeClick(employee: Employee) {
+    if (!this.companyId || !this.officeId || !employee._id) {
+      alert('First select company, office and employee to relocate!')
+      return
+    }
+    this.router.navigate([`./company/${this.companyId}/offices/${this.officeId}/employees/${employee._id}/relocate`])
   }
 }

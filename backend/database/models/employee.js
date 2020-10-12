@@ -17,14 +17,10 @@ const EmployeeScheema = new Schema({
             senior: 'senior'
         }
     },
-    // img: {
-    //     name: String,
-    //     desc: String,
-    //     img: {
-    //         data: Buffer,
-    //         contentType: String
-    //     }
-    // },
+    img: {
+        data: Buffer,
+        contentType: String
+    },
     _officeId: {
         type: Schema.Types.ObjectId,
         ref: 'Offices',

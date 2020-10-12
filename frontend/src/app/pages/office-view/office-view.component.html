@@ -7,7 +7,7 @@
             <div class="company-menu">
                 <a class="company-menu-item" *ngFor="let company of companies"
                     [routerLink]="['/company', company._id, 'offices']" routerLinkActive="is-active">
-                    <p class="white-text" (click)="getOffices(company)">
+                    <p class="white-text" (click)="getOffices(company._id)">
                         {{ company.name.slice(0, 8) }}
                         <span class="pull-right office-delete btn-rounded-corners"
                             (click)="deleteCompany(company)">X</span>
@@ -25,8 +25,8 @@
                 <a class="office office-menu-item" [ngClass]="{'is-active':office.headquarters === true}"
                     *ngFor="let office of offices">
                     <p class="white-text" (click)="getEmployees(office._id)">
-                        {{ office.streetName.slice(0, 8) }}
-                        <span> - {{ office.cityName.slice(0, 8) }}</span>
+                        {{ office.streetName.slice(0, 10) }}
+                        <span> in {{ office.cityName.slice(0, 8) }}</span>
 
                         <!-- 
 <mat-expansion-panel hideToggle>
@@ -94,7 +94,7 @@
                             <span class="pull-right office-delete btn-rounded-corners"
                                 (click)="deleteEmployee(employee)">X</span>
                             <span class="pull-left office-relocate btn-rounded-corners"
-                                (click)="deleteEmployee(employee)">relocate</span>
+                                (click)="relocateEmployeeClick(employee)">relocate</span>
                         </mat-expansion-panel>
 
                     </div>
