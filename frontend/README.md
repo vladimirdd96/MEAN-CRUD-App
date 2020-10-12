@@ -1,27 +1,17 @@
-# Frontend
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.4.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+&emsp;The task is to develop a web application written in nodejs. The application should provide a possibility for
+users to CRUD companies, offices and employees.
+One company should have a name and creaton date. One company may have different offices, the office
+should have a country, city, street, street number, documents (only word files and pdf) and if it is the
+headquarters or not.
+An employee should have a first name, last name starting date, salary, vacation days, and experience
+level (junior, mid, senior) and image. Also, employees may work from different offices, if they like to
+relocate for a summer. All fields are required.
+Add search to all entiess, for companies search by name, for offices search by country, city or street and
+for employees search by first name or last name.
+Bonus: Add real-time notifications to the company and office page when some employee is added. The notfications should be received without refreshing the page.<br>
+<br>
+Requirements: <br>
+â— Frontend: preferably Angular,<br>
+â— Backend: node js preferably REST API<br>
+â— Database: your choice<br>
+â— Write unit tests

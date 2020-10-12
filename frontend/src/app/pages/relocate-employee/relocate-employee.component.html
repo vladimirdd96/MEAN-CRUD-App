@@ -2,22 +2,16 @@
     <div class="model-box form-group">
         <h1 class="title">Relocate Employee</h1>
 
-        <!-- <div>
-            <select (change)="onChange($event.target.value)">
-                <option *ngFor="let office of offices" [value]="office._id">
-                    {{ office.streetName.slice(0, 10) }} {{ office.cityName.slice(0, 8) }}
-                </option>
-            </select>
-        </div> -->
+        <mat-select [(ngModel)]="currentOfficeId" class="form-control has-background-light" placeholder="Select Office">
+            <mat-option value="" disabled selected>Select Office</mat-option>
+            <mat-option *ngFor="let office of offices" [value]="office._id">
+                {{office.streetName}}</mat-option>
+        </mat-select>
 
-
-        <select [(ngModel)]="currentOfficeId">
-            <option value="" disabled selected>Select Office</option>
-            <option *ngFor="let office of offices" [value]="office._id">
-                {{office.streetName}}</option>
-        </select>
         <br>
-        <button class="btn btn-white-text" (click)="canselClick()">Cansel</button>
-        <button class="btn btn-primary" (click)="relocateEmployee(currentOfficeId)">Relocate</button>
+        <div class="buttons">
+            <button class="btn btn-white-text" (click)="canselClick()">Cansel</button>
+            <button class="btn btn-primary" (click)="relocateEmployee(currentOfficeId)">Relocate</button>
+        </div>
     </div>
 </div>
