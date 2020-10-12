@@ -57,22 +57,23 @@ export class OfficeService {
   }
 
   headquarters(companyId: string, offices: Office[], office: Office) {
-    let noHQOffices = offices.filter(o => {
-      o._id !== office._id &&
-        o.headquarters === false
-    })
-    let hQOOffice = offices.filter((o: Office) => {
-      o.headquarters === true
-    })
+    let noHQOffices = offices.filter(o => o.headquarters === false)
+    let hQOOffice = offices.filter(o => o.headquarters === true)[0]
 
-    if (hQOOffice.map((o: Office) => { o._id === office._id })) {
+    console.log('ALLoffices', offices);
+    console.log('CURRENT offices', office);
+    console.log('HQ office', hQOOffice);
+    console.log('NO! HQ office', noHQOffices);
+
+    if (hQOOffice._id === office._id) {
       alert('This office is already a headquarters ');
       return
     } else {
+
       console.log('headquarters changed FrontEnd')
 
-      this.webService.patch(`company/${companyId}/offices/${hQOOffice.map((o: Office) => o._id)}`, { headquarters: !hQOOffice.map((o: Office) => o.headquarters) })
-      return this.webService.patch(`company/${companyId}/offices/${office._id}`, { headquarters: !office.headquarters })
+      this.webService.patch(`company/${companyId}/offices/${hQOOffice._id} `, { headquarters: !hQOOffice.headquarters })
+      return this.webService.patch(`company/${companyId}/offices/${office._id} `, { headquarters: !office.headquarters })
 
     }
 

@@ -76,27 +76,28 @@
                     <div>
                         <!-- <p (click)="relocateEmployee(employee)"> -->
 
+                        <mat-accordion>
+                            <mat-expansion-panel hideToggle>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        {{ employee.firstName.slice(0, 8) }} {{ employee.lastName.slice(0, 8) }}
+                                    </mat-panel-title>
+                                    <mat-panel-description>
 
-                        <mat-expansion-panel hideToggle>
-                            <mat-expansion-panel-header>
-                                <mat-panel-title>
-                                    {{ employee.firstName.slice(0, 8) }} {{ employee.lastName.slice(0, 8) }}
-                                </mat-panel-title>
-                                <mat-panel-description>
-
-                                </mat-panel-description>
-                            </mat-expansion-panel-header>
-                            <p><span>exp: </span><i>{{ employee.experience }}</i></p>
-                            <p><span>Starting Date: </span><i>{{ employee.startingDate.toString().slice(0, 10) }}</i>
-                            </p>
-                            <p><span>Salary: </span><i>$ {{ employee.salary }}</i></p>
-                            <p><span>Vacation Days:</span><i>{{ employee.vacationDays }}</i></p>
-                            <span class="pull-right office-delete btn-rounded-corners"
-                                (click)="deleteEmployee(employee)">X</span>
-                            <span class="pull-left office-relocate btn-rounded-corners"
-                                (click)="relocateEmployeeClick(employee)">relocate</span>
-                        </mat-expansion-panel>
-
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <p><span>exp: </span><i>{{ employee.experience }}</i></p>
+                                <p><span>Starting Date:
+                                    </span><i>{{ employee.startingDate.toString().slice(0, 10) }}</i>
+                                </p>
+                                <p><span>Salary: </span><i>$ {{ employee.salary }}</i></p>
+                                <p><span>Vacation Days:</span><i>{{ employee.vacationDays }}</i></p>
+                                <span class="pull-right office-delete btn-rounded-corners"
+                                    (click)="deleteEmployee(employee)">X</span>
+                                <span class="pull-left office-relocate btn-rounded-corners"
+                                    (click)="relocateEmployeeClick(employee)">relocate</span>
+                            </mat-expansion-panel>
+                        </mat-accordion>
                     </div>
                 </div>
             </div>
