@@ -70,8 +70,8 @@ export class OfficeViewComponent implements OnInit {
 
   }
 
-  headquarters(offices: Office[], office: Office) {
-    this.officeService.headquarters(this.companyId, offices, office)
+  headquarters(office: Office) {
+    this.officeService.headquarters(this.companyId, this.offices, office)
   }
 
   addOfficeClick() {

@@ -33,7 +33,7 @@ export class NewOfficeComponent implements OnInit {
       .subscribe((o: Office) => this.router.navigate([`./company/${this.companyId}/offices/${o._id}/employees`]))
   }
 
-  canselClick() {
+  cancelClick() {
     this.router.navigate(['../'], { relativeTo: this.route })
   }
 

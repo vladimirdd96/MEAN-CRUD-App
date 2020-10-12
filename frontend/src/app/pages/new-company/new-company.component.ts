@@ -32,7 +32,7 @@ export class NewCompanyComponent implements OnInit {
 
   }
 
-  canselClick() {
+  cancelClick() {
     this.router.navigate(['../'], { relativeTo: this.route })
   }
 

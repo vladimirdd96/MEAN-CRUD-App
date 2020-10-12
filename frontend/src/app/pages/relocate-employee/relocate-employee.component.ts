@@ -53,7 +53,7 @@ export class RelocateEmployeeComponent implements OnInit {
   // }
 
 
-  canselClick() {
+  cancelClick() {
     this.router.navigate(['../'], { relativeTo: this.route })
   }
 

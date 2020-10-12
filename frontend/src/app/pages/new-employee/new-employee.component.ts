@@ -69,7 +69,7 @@ export class NewEmployeeComponent implements OnInit {
       });
   }
 
-  canselClick() {
+  cancelClick() {
     this.router.navigate(['../'], { relativeTo: this.route })
   }
 
