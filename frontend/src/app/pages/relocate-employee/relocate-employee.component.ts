@@ -24,7 +24,6 @@ export class RelocateEmployeeComponent implements OnInit {
     private officeService: OfficeService,
     private router: Router,
     private route: ActivatedRoute,
-    // private http: HttpClient
   ) {
 
   }
@@ -43,15 +42,9 @@ export class RelocateEmployeeComponent implements OnInit {
   relocateEmployee(desiredOfficeId: string) {
     this.officeService.relocateEmployee(this.officeId, this.companyId, this.employeeId, desiredOfficeId)
       .subscribe((e: Employee) => {
-        console.log(this.companyId, this.employeeId, this.officeId, desiredOfficeId);
         this.router.navigate([`company/${this.companyId}/offices/${this.officeId}/employees/${e._id}`])
       })
   }
-
-  // onChange(value: Office) {
-  //   this.currentOffice._id = value._id
-  // }
-
 
   cancelClick() {
     this.router.navigate(['../'], { relativeTo: this.route })

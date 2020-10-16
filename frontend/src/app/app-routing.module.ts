@@ -12,10 +12,13 @@ const routes: Routes = [
   { path: 'company/:companyId/offices', component: OfficeViewComponent },
   { path: 'company/:companyId/offices/:officeId/employees', component: OfficeViewComponent },
   { path: 'company/:companyId/offices/:officeId/employees/:employeeId', component: OfficeViewComponent },
+
   { path: 'company/new-company', component: NewCompanyComponent },
   { path: 'company/:companyId/new-office', component: NewOfficeComponent },
   { path: 'company/:companyId/offices/:officeId/new-employee', component: NewEmployeeComponent },
+
   { path: 'company/:companyId/offices/:officeId/employees/:employeeId/relocate', component: RelocateEmployeeComponent },
+  
   { path: '**', redirectTo: '/company', pathMatch: 'full' },
 ]
 

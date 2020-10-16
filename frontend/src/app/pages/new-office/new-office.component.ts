@@ -20,13 +20,13 @@ export class NewOfficeComponent implements OnInit {
     private route: ActivatedRoute,
     private http: HttpClient
   ) {
+  }
+
+  ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.officeId = params.officeId
       this.companyId = params.companyId
     })
-  }
-
-  ngOnInit(): void {
   }
   addOffice(countryName: string, cityName: string, streetName: string, streetNumber: number, headquarters: boolean) {
     this.officeService.createOffice(countryName, cityName, streetName, streetNumber, headquarters, this.companyId)

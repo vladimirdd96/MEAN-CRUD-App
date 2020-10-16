@@ -66,12 +66,12 @@ export class OfficeViewComponent implements OnInit {
 
   deleteOffice(office: Office) {
     this.officeService.deleteOffice(this.companyId, office._id)
-      .subscribe((_office: Company) => this.offices = this.offices.filter(c => c._id !== _office._id))
+      .subscribe((_office: Office) => this.offices = this.offices.filter(o => o._id !== _office._id))
 
   }
 
   headquarters(office: Office) {
-    this.officeService.headquarters(this.companyId, this.offices, office)
+    this.officeService.headquarters(this.companyId, office).subscribe(() => office.headquarters = !office.headquarters)
   }
 
   addOfficeClick() {

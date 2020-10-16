@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import Company from './models/company';
-import Employee from './models/employee';
 import Office from './models/office';
 import { WebService } from './web.service';
 
@@ -11,13 +9,29 @@ export class OfficeService {
 
   constructor(private webService: WebService) { }
 
+//search
+// getCompaniesSearch() {
+//   return this.webService.get('')
+// }
+
+// getOfficeesSearch() {
+//   return this.webService.get(`offices`)
+// }
+
+// getEmployeesSearch() {
+//   return this.webService.get(`employees`)
+// }
+
+
+  // getCompanyById(companyId: string) {
+  //   return this.webService.get(`company/${companyId}/offices`)
+  // }
+
   getCompanies() {
-    console.log('getting company FrontEnd');
     return this.webService.get('company')
   }
 
   createCompany(name: string, creationDate: Date) {
-    console.log('creating company FrontEnd');
     if (!name || !creationDate) {
       alert('All fields are required!')
       return
@@ -26,12 +40,14 @@ export class OfficeService {
   }
 
   deleteCompany(companyId: string) {
-    console.log('deleting company FrontEnd');
     return this.webService.delete(`company/${companyId}`)
   }
 
+  // getOfficeeById(companyId: string, officeId: string) {
+  //   return this.webService.get(`company/${companyId}/offices/${officeId}/employees`)
+  // }
+
   getOfficees(companyId: string) {
-    console.log('geting offices FrontEnd');
     return this.webService.get(`company/${companyId}/offices`)
   }
 
@@ -47,42 +63,23 @@ export class OfficeService {
       alert('All fields are required!')
       return
     }
-    console.log('creating office FrontEnd');
     return this.webService.post(`company/${_companyId}/offices`, { countryName, cityName, streetName, streetNumber, headquarters, _companyId });
   }
 
   deleteOffice(companyId: string, officeId: string) {
-    console.log('deleting office FrontEnd');
-    return this.webService.delete(`company/${companyId}/offices/${officeId}`)
+    return this.webService.delete(`company/${companyId}/offices/${officeId}/employees`)
   }
 
-  headquarters(companyId: string, offices: Office[], office: Office) {
-    let noHQOffices = offices.filter(o => o.headquarters === false)
-    let hQOOffice = offices.filter(o => o.headquarters === true)[0]
-
-    console.log('ALLoffices', offices);
-    console.log('CURRENT offices', office);
-    console.log('HQ office', hQOOffice);
-    console.log('NO! HQ office', noHQOffices);
-
-    if (hQOOffice._id === office._id) {
-      alert('This office is already a headquarters ');
-      return
-    } else {
-
-      console.log('headquarters changed FrontEnd')
-
-      this.webService.patch(`company/${companyId}/offices/${hQOOffice._id} `, { headquarters: !hQOOffice.headquarters })
-      return this.webService.patch(`company/${companyId}/offices/${office._id} `, { headquarters: !office.headquarters })
-
-    }
-
-
+  headquarters(companyId: string, office: Office) {
+    console.log('in headquarters FrontEnd')
+    return this.webService.patch(`company/${companyId}/offices/${office._id}/employees`, { headquarters: !office.headquarters })
   }
 
+  // getEmployeeById(companyId: string, officeId: string, employeeId: string) {
+  //   return this.webService.get(`company/${companyId}/offices/${officeId}/employees/${employeeId}`)
+  // }
 
   getEmployees(companyId: string, officeId: string) {
-    console.log('getting employees FrontEnd');
     return this.webService.get(`company/${companyId}/offices/${officeId}/employees`)
   }
 
@@ -104,19 +101,18 @@ export class OfficeService {
       alert('All fields are required!')
       return
     }
-    console.log('creating employee FrontEnd');
     return this.webService.post(`company/${_companyId}/offices/${_officeId}/employees`, { firstName, lastName, startingDate, salary, vacationDays, experience, _officeId })
   }
 
   deleteEmployee(companyId: string, officeId: string, employeeId: string) {
-    console.log('deleting employee FrontEnd');
     return this.webService.delete(`company/${companyId}/offices/${officeId}/employees/${employeeId}`)
   }
 
-
-
   relocateEmployee(companyId: string, officeId: string, employeeId: string, desiredOfficeId: string) {
-    console.log('relocating employees FrontEnd');
     return this.webService.patch(`company/${companyId}/offices/${officeId}/employees/${employeeId}`, { _officeId: desiredOfficeId })
+  }
+
+  search(searchInput: string) {
+    return this.webService.get(`company/${searchInput}`)
   }
 }

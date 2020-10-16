@@ -1,9 +1,7 @@
 const OfficeModel = require('../models/office')
-const EmployeeModel = require('../models/employee')
 
 const OfficeController = {
     findAll: (req, res) => {
-        console.log('getting office');
         OfficeModel.find({ _companyId: req.params.companyId })
             .then((office) => res.send(office))
             .catch((err) => console.log(err))
@@ -15,30 +13,41 @@ const OfficeController = {
             .catch(err => console.log(err))
     },
 
+    findById: (req, res) => {
+        OfficeModel.find({ _id: req.params.officeId })
+            .then(office => res.send(office))
+            .catch(err => console.log(err))
+    },
+
     create: (req, res) => {
-        console.log('creating office');
-        (new OfficeModel({
+        const office = new OfficeModel({
             'countryName': req.body.countryName,
             'cityName': req.body.cityName,
             'streetName': req.body.streetName,
             'streetNumber': req.body.streetNumber,
             '_companyId': req.params.companyId,
-            'ifHeadquarters': req.body.ifHeadquarters,
-        }))
+            'headquarters': req.body.headquarters,
+        })
             .save()
-            .then(office => res.send(office))
+            .then(() => res.send(office))
             .catch(err => console.log(err))
     },
 
     update: (req, res) => {
-        console.log('updating office');
-        OfficeModel.findOneAndUpdate({ _id: req.params.officeId }, { $set: req.body }, { useFindAndModify: false, returnOriginal: false })
-            .then(office => res.send(office))
-            .catch(err => console.log(err))
+        OfficeModel.findOneAndUpdate({ headquarters: true }, { $set: { headquarters: false } })
+            .then(hQOffice => {
+                OfficeModel.findOne({ _id: req.params.officeId })
+                    .then((office) => {
+                        hQOffice.headquarters = false
+                        office.headquarters = !office.headquarters
+                        office.save()
+                        res.send(office)
+                    })
+                    .catch(err => console.log(err))
+            })
     },
 
     delete: (req, res) => {
-        console.log('deleting office')
         // const deleteEmployee = office => {
         //     EmployeeModel.deleteMany({ _officeId: office._id })
         //         .then(() => office)

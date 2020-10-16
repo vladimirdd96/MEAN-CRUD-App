@@ -1,3 +1,5 @@
+<!-- <app-search></app-search> -->
+
 <div class="centered-content">
     <div class="office-manager-container">
         <div class="sidebar">
@@ -29,6 +31,10 @@
                         <span> in {{ office.cityName.slice(0, 8) }}</span>
 
                         <!-- 
+
+[ngClass]="{'is-active':office.headquarters === true}"
+
+
 <mat-expansion-panel hideToggle>
     <mat-expansion-panel-header>
         <mat-panel-title>
@@ -51,7 +57,7 @@
                         <span class="pull-right office-delete btn-rounded-corners"
                             (click)="deleteOffice(office)">X</span>
                         <span class="pull-right office-delete btn-rounded-corners"
-                            (click)="headquarters(office)">*</span>
+                            (click)="headquarters(office)" [ngClass]="{'office-hq':office.headquarters === true}">hq</span>
                     </p>
                 </a>
                 <button class="btn btn-primary add-button" (click)="addOfficeClick()">
@@ -72,12 +78,10 @@
                 Employees
             </h1>
             <div class="company-menu">
-                <div class="emplyee-menu-item" *ngFor="let employee of employees">
                     <div>
-                        <!-- <p (click)="relocateEmployee(employee)"> -->
 
                         <mat-accordion>
-                            <mat-expansion-panel hideToggle>
+                            <mat-expansion-panel hideToggle *ngFor="let employee of employees">
                                 <mat-expansion-panel-header>
                                     <mat-panel-title>
                                         {{ employee.firstName.slice(0, 8) }} {{ employee.lastName.slice(0, 8) }}
@@ -99,7 +103,6 @@
                             </mat-expansion-panel>
                         </mat-accordion>
                     </div>
-                </div>
             </div>
 
             <button class="btn btn-primary add-button" (click)="addEmployeeClick()">

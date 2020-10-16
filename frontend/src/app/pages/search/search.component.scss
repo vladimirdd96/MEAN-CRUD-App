@@ -1,0 +1,25 @@
+.form-control {
+  width: 40em;
+  background-color: transparent;
+  border: 1px solid #2066b144 !important;
+  margin: 0 auto;
+  text-align: center;
+  color: #ffffff;
+
+  &:focus {
+    border: 1px solid #2066b1 !important;
+  }
+}
+
+::placeholder {
+  color: #ffffff;
+}
+
+div {
+  margin: 0 auto !important;
+  text-align: center !important;
+}
+
+form {
+  margin-top: 3px !important;
+}

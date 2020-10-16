@@ -14,8 +14,8 @@
         <input #employeeExperienceInput nametype="text" class="form-control has-background-light"
             placeholder="Enter experience {junior, mid, senior}">
         <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
-        <button (click)="fileInput.click()">Select File</button>
-        <button (click)="onUpload()">Upload!</button>
+        <button class="btn btn-white-text" (click)="fileInput.click()">Select File</button>
+        <button class="btn btn-primary" (click)="onUpload()">Upload!</button>
 
         <button class="btn btn-white-text" (click)="cancelClick()">Cansel</button>
         <button class="btn btn-primary"

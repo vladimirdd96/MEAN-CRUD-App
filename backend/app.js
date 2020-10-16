@@ -8,9 +8,9 @@ mongoose.set('useCreateIndex', true);
 
 app.use(express.json())
 
-const CompanyController = require('./database/controllers/CompanyController')
-const OfficeController = require('./database/controllers/OfficeController')
-const EmployeeController = require('./database/controllers/EmployeeController')
+const companyRouter = require('./database/routes/company-router');
+const officeRouter = require('./database/routes/office-router');
+const employeeRouter = require('./database/routes/employee-router');
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
@@ -21,39 +21,14 @@ app.use((req, res, next) => {
 
 //Company
 
-app.get('/company', CompanyController.findAll)
-
-app.get('/company/search', CompanyController.findByName)
-
-app.post('/company', CompanyController.create)
-
-app.patch('/company/:companyId', CompanyController.update)
-
-app.delete('/company/:companyId', CompanyController.delete)
+app.use(companyRouter);
 
 //Office
 
-app.get('/company/:companyId/offices', OfficeController.findAll)
-
-app.get('/company/:companyId/offices/search', OfficeController.findByCountryCityStreet)
-
-app.post('/company/:companyId/offices', OfficeController.create)
-
-app.patch('/company/:companyId/offices/:officeId', OfficeController.update)
-
-app.delete('/company/:companyId/offices/:officeId', OfficeController.delete)
+app.use(officeRouter);
 
 //Employee
 
-app.get('/company/:companyId/offices/:officeId/employees', EmployeeController.findAll)
-
-app.get('/company/:companyId/offices/:officeId/employees/search', EmployeeController.findByFnLn)
-
-app.post('/company/:companyId/offices/:officeId/employees', EmployeeController.create)
-
-app.patch('/company/:companyId/offices/:officeId/employees/:employeeId', EmployeeController.update)
-
-app.delete('/company/:companyId/offices/:officeId/employees/:employeeId', EmployeeController.delete)
-
+app.use(employeeRouter)
 
 app.listen(3000, () => console.log("Listening on port 3000"))
