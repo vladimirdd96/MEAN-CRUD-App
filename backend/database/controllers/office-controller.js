@@ -34,11 +34,11 @@ const OfficeController = {
     },
 
     update: (req, res) => {
-        OfficeModel.findOneAndUpdate({ headquarters: true }, { $set: { headquarters: false } })
+        OfficeModel.findOneAndUpdate({ _companyId: req.params.companyId, headquarters: true }, { $set: { headquarters: false } })
             .then(hQOffice => {
                 OfficeModel.findOne({ _id: req.params.officeId })
                     .then((office) => {
-                        hQOffice.headquarters = false
+                        // hQOffice.headquarters = false
                         office.headquarters = !office.headquarters
                         office.save()
                         res.send(office)
