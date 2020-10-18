@@ -6,10 +6,10 @@ const employeeRouter = express.Router();
 
 
 //Search
-// employeeRouter.get('/employees', EmployeeController.findByFnLn)
+employeeRouter.get('/employees', EmployeeController.findByFnLn)
 
 //Employee
-employeeRouter.get('/company/:companyId/offices/:officeId/employees', EmployeeController.findAll)
+employeeRouter.get('/company/:companyId/offices/:officeId/employees', EmployeeController.findAllForOffice)
 
 // employeeRouter.get('/company/:companyId/offices/:officeId/employees/:employeeId', EmployeeController.findById)
 

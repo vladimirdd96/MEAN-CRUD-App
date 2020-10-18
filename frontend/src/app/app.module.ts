@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,8 +15,8 @@ import { RelocateEmployeeComponent } from './pages/relocate-employee/relocate-em
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
-
+import { FilterPipe } from './filters/filter.pipe';
+import { SearchComponent } from './pages/search/search.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +26,8 @@ import { CommonModule } from '@angular/common';
     NewEmployeeComponent,
     NewCompanyComponent,
     RelocateEmployeeComponent,
+    SearchComponent,
+    FilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -37,9 +39,8 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     RouterModule,
     CommonModule,
-
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

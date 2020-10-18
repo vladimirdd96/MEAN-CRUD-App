@@ -7,14 +7,13 @@ import { OfficeService } from 'src/app/office.service';
 @Component({
   selector: 'app-new-employee',
   templateUrl: './new-employee.component.html',
-  styleUrls: ['./new-employee.component.scss']
+  styleUrls: ['./new-employee.component.scss'],
 })
 export class NewEmployeeComponent implements OnInit {
-
   companyId: string;
-  officeId: string
+  officeId: string;
 
-  selectedFile: File = null
+  selectedFile: File = null;
 
   constructor(
     private officeService: OfficeService,
@@ -23,13 +22,12 @@ export class NewEmployeeComponent implements OnInit {
     private http: HttpClient
   ) {
     this.route.params.subscribe((params: Params) => {
-      this.officeId = params.officeId
-      this.companyId = params.companyId
-    })
+      this.officeId = params.officeId;
+      this.companyId = params.companyId;
+    });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   addEmployee(
     firstName: string,
@@ -37,40 +35,45 @@ export class NewEmployeeComponent implements OnInit {
     startingDate: Date,
     salary: number,
     vacationDays: number,
-    experience:
-      {
-        junior: 'junior',
-        mid: 'mid',
-        senior: 'senior',
-      }) {
-    this.officeService.createEmployee(
-      firstName,
-      lastName,
-      startingDate,
-      salary,
-      vacationDays,
-      experience,
-      this.companyId,
-      this.officeId
-    )
-      .subscribe((e: Employee) => this.router.navigate([`./company/${this.companyId}/offices/${this.officeId}/employees/${e._id}`]))
+    experience: {
+      junior: 'junior';
+      mid: 'mid';
+      senior: 'senior';
+    }
+  ) {
+    this.officeService
+      .createEmployee(
+        firstName,
+        lastName,
+        startingDate,
+        salary,
+        vacationDays,
+        experience,
+        this.companyId,
+        this.officeId
+      )
+      .subscribe((e: Employee) =>
+        this.router.navigate([
+          `./company/${this.companyId}/offices/${this.officeId}/employees/${e._id}`,
+        ])
+      );
   }
 
   onFileChanged(event) {
-    this.selectedFile = event.target.files[0]
+    this.selectedFile = event.target.files[0];
   }
 
   onUpload() {
     const uploadData = new FormData();
     uploadData.append('myFile', this.selectedFile, this.selectedFile.name);
-    this.http.post('my-backend.com/file-upload', uploadData)
-      .subscribe(event => {
+    this.http
+      .post('my-backend.com/file-upload', uploadData)
+      .subscribe((event) => {
         console.log(event); // handle event here
       });
   }
 
   cancelClick() {
-    this.router.navigate(['../'], { relativeTo: this.route })
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
-
 }

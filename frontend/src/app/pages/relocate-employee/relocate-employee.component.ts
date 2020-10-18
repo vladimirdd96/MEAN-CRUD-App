@@ -8,46 +8,55 @@ import { OfficeService } from 'src/app/office.service';
 @Component({
   selector: 'app-relocate-employee',
   templateUrl: './relocate-employee.component.html',
-  styleUrls: ['./relocate-employee.component.scss']
+  styleUrls: ['./relocate-employee.component.scss'],
 })
 export class RelocateEmployeeComponent implements OnInit {
-
-  companyId: string
-  officeId: string
-  employeeId: string
+  companyId: string;
+  officeId: string;
+  employeeId: string;
   offices: Office[] = [];
 
-  currentOfficeId: string
-
+  currentOfficeId: string;
 
   constructor(
     private officeService: OfficeService,
     private router: Router,
-    private route: ActivatedRoute,
-  ) {
-
-  }
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      this.officeId = params.officeId
-      this.companyId = params.companyId
-      this.employeeId = params.employeeId
-    })
-    this.officeService.getOfficees(this.companyId).subscribe((offices: Office[]) => this.offices = offices.filter((o: Office) => o._id !== this.officeId))
-    console.log(this.offices);
-    this.currentOfficeId = this.officeId
+      this.officeId = params.officeId;
+      this.companyId = params.companyId;
+      this.employeeId = params.employeeId;
+    });
+    this.officeService
+      .getOfficees(this.companyId)
+      .subscribe(
+        (offices: Office[]) =>
+          (this.offices = offices.filter(
+            (o: Office) => o._id !== this.officeId
+          ))
+      );
+    this.currentOfficeId = this.officeId;
   }
 
   relocateEmployee(desiredOfficeId: string) {
-    this.officeService.relocateEmployee(this.officeId, this.companyId, this.employeeId, desiredOfficeId)
+    this.officeService
+      .relocateEmployee(
+        this.officeId,
+        this.companyId,
+        this.employeeId,
+        desiredOfficeId
+      )
       .subscribe((e: Employee) => {
-        this.router.navigate([`company/${this.companyId}/offices/${this.officeId}/employees/${e._id}`])
-      })
+        this.router.navigate([
+          `company/${this.companyId}/offices/${this.officeId}/employees/${e._id}`,
+        ]);
+      });
   }
 
   cancelClick() {
-    this.router.navigate(['../'], { relativeTo: this.route })
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
-
 }

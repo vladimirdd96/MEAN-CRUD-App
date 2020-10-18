@@ -10,20 +10,32 @@ const routes: Routes = [
   { path: '', redirectTo: '/company', pathMatch: 'full' },
   { path: 'company', component: OfficeViewComponent },
   { path: 'company/:companyId/offices', component: OfficeViewComponent },
-  { path: 'company/:companyId/offices/:officeId/employees', component: OfficeViewComponent },
-  { path: 'company/:companyId/offices/:officeId/employees/:employeeId', component: OfficeViewComponent },
+  {
+    path: 'company/:companyId/offices/:officeId/employees',
+    component: OfficeViewComponent,
+  },
+  {
+    path: 'company/:companyId/offices/:officeId/employees/:employeeId',
+    component: OfficeViewComponent,
+  },
 
   { path: 'company/new-company', component: NewCompanyComponent },
   { path: 'company/:companyId/new-office', component: NewOfficeComponent },
-  { path: 'company/:companyId/offices/:officeId/new-employee', component: NewEmployeeComponent },
+  {
+    path: 'company/:companyId/offices/:officeId/new-employee',
+    component: NewEmployeeComponent,
+  },
 
-  { path: 'company/:companyId/offices/:officeId/employees/:employeeId/relocate', component: RelocateEmployeeComponent },
-  
+  {
+    path: 'company/:companyId/offices/:officeId/employees/:employeeId/relocate',
+    component: RelocateEmployeeComponent,
+  },
+
   { path: '**', redirectTo: '/company', pathMatch: 'full' },
-]
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

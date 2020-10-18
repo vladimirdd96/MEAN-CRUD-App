@@ -6,7 +6,7 @@ const officeRouter = express.Router();
 
 
 //Search
-// officeRouter.get('/offices', OfficeController.findByCountryCityStreet)
+officeRouter.get('/offices', OfficeController.findByCountryCityStreet)
 
 //Office
 officeRouter.get('/company/:companyId/offices', OfficeController.findAll)

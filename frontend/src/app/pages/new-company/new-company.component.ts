@@ -6,16 +6,16 @@ import { OfficeService } from 'src/app/office.service';
 @Component({
   selector: 'app-new-company',
   templateUrl: './new-company.component.html',
-  styleUrls: ['./new-company.component.scss']
+  styleUrls: ['./new-company.component.scss'],
 })
 export class NewCompanyComponent implements OnInit {
   companyId: string;
-  officeId: string
+  officeId: string;
 
   constructor(
     private officeService: OfficeService,
     private router: Router,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {
     // this.route.params.subscribe((params: Params) => {
     //   this.officeId = params.officeId
@@ -23,17 +23,19 @@ export class NewCompanyComponent implements OnInit {
     // })
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   addCompany(name: string, creationDate: Date) {
-    this.officeService.createCompany(name, creationDate)
-      .subscribe((company: Company) => this.router.navigate([`../${company._id}/offices`], { relativeTo: this.route }))
-
+    this.officeService
+      .createCompany(name, creationDate)
+      .subscribe((company: Company) =>
+        this.router.navigate([`../${company._id}/offices`], {
+          relativeTo: this.route,
+        })
+      );
   }
 
   cancelClick() {
-    this.router.navigate(['../'], { relativeTo: this.route })
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
-
 }

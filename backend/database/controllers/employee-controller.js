@@ -1,8 +1,14 @@
 const EmployeeModel = require('../models/employee')
 
 const EmployeeController = {
-    findAll: (req, res) => {
+    findAllForOffice: (req, res) => {
         EmployeeModel.find({ _officeId: req.params.officeId })
+            .then((employee) => { res.send(employee) })
+            .catch((err) => console.log(err))
+    },
+
+    findAll: (req, res) => {
+        EmployeeModel.find({})
             .then((employee) => { res.send(employee) })
             .catch((err) => console.log(err))
     },

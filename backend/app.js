@@ -11,6 +11,7 @@ app.use(express.json())
 const companyRouter = require('./database/routes/company-router');
 const officeRouter = require('./database/routes/office-router');
 const employeeRouter = require('./database/routes/employee-router');
+const searchRouter = require('./database/routes/search-router');
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
@@ -30,5 +31,7 @@ app.use(officeRouter);
 //Employee
 
 app.use(employeeRouter)
+
+app.use(searchRouter);
 
 app.listen(3000, () => console.log("Listening on port 3000"))

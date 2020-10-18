@@ -7,61 +7,99 @@ import Office from 'src/app/models/office';
 import { OfficeService } from 'src/app/office.service';
 
 @Component({
-    selector: 'app-search',
-    templateUrl: './search.component.html',
-    styleUrls: ['./search.component.scss']
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
+  companiesSearch: Company[] = [];
+  officesSearch: Office[] = [];
+  employeesSearch: Employee[] = [];
 
-    companiesSearch: Company[] = [];
-    officesSearch: Office[] = [];
-    employeesSearch: Employee[] = [];
+  searchInput = '';
+  newSearch = 'No Content';
 
-    searchInput = ''
-    newSearch = 'No Content'
+  constructor(
+    private officeService: OfficeService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
-    constructor(
-        private officeService: OfficeService,
-        private router: Router,
-        private route: ActivatedRoute,
-    ) { }
+  ngOnInit(): void {
+    this.officeService
+      .getCompaniesSearch()
+      .subscribe(
+        (companiesSearch: Company[]) => (this.companiesSearch = companiesSearch)
+      );
+    console.log(`companiesSearch: ${this.companiesSearch}`);
+    this.officeService
+      .getOfficeesSearch()
+      .subscribe(
+        (officesSearch: Office[]) => (this.officesSearch = officesSearch)
+      );
+    console.log(`officesSearch: ${this.officesSearch}`);
+    this.officeService
+      .getEmployeesSearch()
+      .subscribe(
+        (employeesSearch: Employee[]) =>
+          (this.employeesSearch = employeesSearch)
+      );
+    console.log(`employeesSearch: ${this.employeesSearch}`);
+  }
 
-    ngOnInit(): void {
-        this.officeService.getCompaniesSearch().subscribe((companiesSearch: Company[]) => this.companiesSearch = companiesSearch);
-        console.log(`companiesSearch: ${this.companiesSearch}`);
-        this.officeService.getOfficeesSearch().subscribe((officesSearch: Office[]) => this.officesSearch = officesSearch)
-        console.log(`officesSearch: ${this.officesSearch}`);
-        this.officeService.getEmployeesSearch().subscribe((employeesSearch: Employee[]) => this.employeesSearch = employeesSearch)
-        console.log(`employeesSearch: ${this.employeesSearch}`);
+  searchClick() {
+    this.router.navigate([`company/${this.searchInput}`]);
+  }
+
+  onSearchInput = () => {
+    this.newSearch = this.searchInput;
+    console.log('searching for input', this.newSearch);
+    const foundCompany = this.companiesSearch.find((c: Company) =>
+      this.newSearch.toString().includes(c.name)
+    );
+    if (foundCompany) {
+      return this.officeService
+        .getOfficees(foundCompany._id)
+        .subscribe(() =>
+          this.router.navigate([`company/${foundCompany._id}/offices`])
+        );
     }
 
-    searchClick() {
-        this.router.navigate([`company/${this.searchInput}`])
+    const foundOffice = this.officesSearch.find((o: Office) => {
+      o.countryName.toLowerCase().includes(this.newSearch.toLowerCase()) ||
+        o.cityName.toLowerCase().includes(this.newSearch.toLowerCase()) ||
+        o.streetName.toLowerCase().includes(this.newSearch.toLowerCase());
+    });
+    if (foundOffice) {
+      return this.officeService
+        .getEmployees(foundOffice._companyId, foundOffice._id)
+        .subscribe(() =>
+          this.router.navigate([
+            `company/${foundOffice._companyId}/offices/${foundOffice._id}/employees`,
+          ])
+        );
     }
 
-    onSearchInput = () => {
-        const search = () => {
-            this.newSearch = this.searchInput
-            console.log('searching for input', this.newSearch);
-            this.companiesSearch.filter((c: Company) =>{
-                if(c.name === this.newSearch) {
-                    return this.officeService.getCompanyById(c._id).subscribe((c: Company) => this.router.navigate([`company/${c._id}`]))
-                }
-            })
-            this.officesSearch.filter((office: Office)=> {
-                if(office.countryName === this.newSearch || office.cityName === this.newSearch || office.streetName === this.newSearch){
-                    return this.officeService.getOfficeeById(office._companyId, office._id).subscribe((o: Office) => this.router.navigate([`company/${o._companyId}/offices/${o._id}`]))
-                }
-
-            })
-            this.employeesSearch.filter((e: Employee) => {
-                if( e.firstName === this.newSearch || e.lastName === this.newSearch) {
-                    let companyForE
-                    companyForE = this.officesSearch.filter((o: Office) => o._id === e._officeId)
-                    return this.officeService.getEmployeeById(companyForE._companyId, e._officeId, e._id).subscribe((e: Employee) => this.router.navigate([`company/${companyForE._companyId}/offices/${e._officeId}/employeesSearch/${e._id}`]))
-                }
-            })
-        }
-        setTimeout(search, 2000)
+    const foundEmployee = this.employeesSearch.find((e: Employee) => {
+      this.newSearch.toString().includes(e.firstName) ||
+        this.newSearch.toString().includes(e.lastName);
+    });
+    if (foundEmployee) {
+      let companyForE;
+      companyForE = this.officesSearch.find(
+        (o: Office) => foundEmployee._officeId === o._id
+      );
+      return this.officeService
+        .getEmployeeById(
+          companyForE._companyId,
+          foundEmployee._officeId,
+          foundEmployee._id
+        )
+        .subscribe((e: Employee) => {
+          this.router.navigate([
+            `company/${companyForE._companyId}/offices/${e._officeId}/employeesSearch/${e._id}`,
+          ]);
+        });
     }
+  };
 }

@@ -53,6 +53,7 @@
   flex-grow: 1;
   .company-menu-item {
     display: flex;
+    height: 50px;
     align-items: center;
     padding: 10px 15px;
     border-radius: 5px;
@@ -235,6 +236,21 @@ a.company-menu-item {
   }
 }
 
+.company-control-panel {
+  height: 85% !important;
+  display: grid !important;
+}
+
+.office-control-panel {
+  height: 85% !important;
+  display: grid !important;
+}
+
+.employee-control-panel {
+  height: 85% !important;
+  display: grid !important;
+}
+
 mat-expansion-panel {
   width: 100%;
   font-size: 12px;
@@ -259,4 +275,45 @@ mat-panel-title {
 
 mat-expansion-panel-header {
   background-color: #201d1d;
+}
+
+
+
+
+
+.search-form-control {
+  width: 40em !important;
+  background-color: transparent;
+  border: 1px solid #2066b144 !important;
+  margin: 0 auto;
+  text-align: center;
+  color: #ffffff !important;
+
+  
+  &:focus {
+    background-color: transparent;
+    border: 1px solid #2066b1 !important;
+    color: #ffffff !important;
+    ::placeholder {
+      color: #ffffff !important;
+    }
+  }
+  &.selected {
+    background-color: #2066b1 !important;
+    color: #ffffff !important;
+  }
+}
+
+::placeholder {
+  color: #ffffff !important;
+}
+
+
+.search-div {
+  margin: 0 auto !important;
+  text-align: center !important;
+}
+
+.search-form {
+  margin-top: 3px !important;
 }
