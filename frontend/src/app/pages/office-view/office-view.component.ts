@@ -26,6 +26,9 @@ export class OfficeViewComponent implements OnInit {
   officesSearch: Office[];
   employeeSearch: Employee[];
 
+  selectedItemId: string;
+  selectedEmployeeId: string;
+
   constructor(
     private officeService: OfficeService,
     private route: ActivatedRoute,
@@ -40,7 +43,11 @@ export class OfficeViewComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.companyId = params.companyId;
       this.officeId = params.officeId;
+      this.selectedItemId = this.officeId;
+
       this.employeeId = params.employeeId;
+      this.selectedEmployeeId = this.employeeId;
+
       if (!this.companyId) return;
       this.officeService
         .getOfficees(this.companyId)
@@ -158,11 +165,12 @@ export class OfficeViewComponent implements OnInit {
     ]);
   }
 
+  editEmployee(e: Employee) {}
+
   onSearchInput = () => {
     this.newSearch = this.searchInput;
-    console.log('searching for input', this.newSearch);
     const foundCompany = this.companies.find((c: Company) =>
-      this.newSearch.toString().includes(c.name)
+      this.newSearch.toLowerCase().includes(c.name.toLowerCase())
     );
     if (foundCompany) {
       return this.officeService
@@ -192,7 +200,7 @@ export class OfficeViewComponent implements OnInit {
         this.newSearch.toString().includes(e.lastName);
     });
     if (foundEmployee) {
-      let companyForE;
+      let companyForE: Office;
       companyForE = this.offices.find(
         (o: Office) => foundEmployee._officeId === o._id
       );

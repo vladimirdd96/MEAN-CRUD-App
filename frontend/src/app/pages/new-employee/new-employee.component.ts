@@ -1,8 +1,33 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormGroupDirective,
+  NgForm,
+  Validators,
+} from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ApiService } from 'src/app/api.service';
 import Employee from 'src/app/models/employee';
 import { OfficeService } from 'src/app/office.service';
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(
+    control: FormControl | null,
+    form: FormGroupDirective | NgForm | null
+  ): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(
+      control &&
+      control.invalid &&
+      (control.dirty || control.touched || isSubmitted)
+    );
+  }
+}
 
 @Component({
   selector: 'app-new-employee',
@@ -15,11 +40,20 @@ export class NewEmployeeComponent implements OnInit {
 
   selectedFile: File = null;
 
+  galleryForm: FormGroup;
+  imageFile: File = null;
+  imageTitle = '';
+  imageDesc = '';
+  isLoadingResults = false;
+  matcher = new MyErrorStateMatcher();
+
   constructor(
+    private api: ApiService,
     private officeService: OfficeService,
     private router: Router,
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private formBuilder: FormBuilder
   ) {
     this.route.params.subscribe((params: Params) => {
       this.officeId = params.officeId;
@@ -27,7 +61,13 @@ export class NewEmployeeComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.galleryForm = this.formBuilder.group({
+      imageFile: [null, Validators.required],
+      imageTitle: [null, Validators.required],
+      imageDesc: [null, Validators.required],
+    });
+  }
 
   addEmployee(
     firstName: string,
@@ -57,20 +97,28 @@ export class NewEmployeeComponent implements OnInit {
           `./company/${this.companyId}/offices/${this.officeId}/employees/${e._id}`,
         ])
       );
+    this.onFormSubmit();
   }
 
-  onFileChanged(event) {
-    this.selectedFile = event.target.files[0];
-  }
-
-  onUpload() {
-    const uploadData = new FormData();
-    uploadData.append('myFile', this.selectedFile, this.selectedFile.name);
-    this.http
-      .post('my-backend.com/file-upload', uploadData)
-      .subscribe((event) => {
-        console.log(event); // handle event here
-      });
+  onFormSubmit(): void {
+    this.isLoadingResults = true;
+    this.api
+      .addGallery(
+        this.galleryForm.value,
+        this.galleryForm.get('imageFile').value._files[0]
+      )
+      .subscribe(
+        (res: any) => {
+          this.isLoadingResults = false;
+          if (res.body) {
+            // this.router.navigate(['/gallery-details', res.body._id]);
+          }
+        },
+        (err: any) => {
+          console.log(err);
+          this.isLoadingResults = false;
+        }
+      );
   }
 
   cancelClick() {

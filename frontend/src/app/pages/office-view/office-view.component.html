@@ -1,8 +1,7 @@
-<!-- <app-search></app-search> -->
 <form class="form-inline waves-light search-form" mdbWavesEffect>
     <div class="md-form mt-0 search-div">
-        <input class="form-control mr-sm-2 search-form-control" type="text" placeholder="Search" name="search" [(ngModel)]="searchInput"
-            (input)="onSearchInput()">
+        <input class="form-control mr-sm-2 search-form-control" type="text" placeholder="Search" name="search"
+            [(ngModel)]="searchInput" (input)="onSearchInput()">
     </div>
 </form>
 
@@ -16,15 +15,16 @@
             <div class="company-menu">
                 <div class="company-control-panel">
                     <a class="company-menu-item" *ngFor="let company of companies"
-                    [routerLink]="['/company', company._id, 'offices']" routerLinkActive="is-active">
-                    <p class="white-text" (click)="getOffices(company._id)">
-                        {{ company.name.slice(0, 13) }}
-                        <span class="pull-right office-delete btn-rounded-corners"
-                            (click)="deleteCompany(company)">X</span>
-                    </p>
-                </a>
+                        [routerLink]="['/company', company._id, 'offices']" routerLinkActive="is-active">
+                        <p class="white-text" (click)="getOffices(company._id)">
+                            {{ company.name.slice(0, 13) }}
+                            <span class="pull-right office-delete btn-rounded-corners" (click)="deleteCompany(company)">
+                                <mat-icon>backspace</mat-icon>
+                            </span>
+                        </p>
+                    </a>
                 </div>
-                
+
             </div>
             <button class="btn btn-primary btn-round-corners" routerLink="/company/new-company">Add Company</button>
         </div>
@@ -35,23 +35,26 @@
                     Offices
                 </h1>
                 <div class="office-menu">
-                    <a class="office office-menu-item" [ngClass]="{'is-active':office.headquarters === true}"
-                        *ngFor="let office of offices">
+                    <a class="office office-menu-item" *ngFor="let office of offices"
+                        [ngClass]="{'is-active':selectedItemId == office._id}">
                         <p class="white-text" (click)="getEmployees(office._id)">
-                            {{ office.streetName.slice(0, 13) }}
-                            <span> in {{ office.cityName.slice(0, 13) }}</span>
-                            <span class="pull-right office-delete btn-rounded-corners"
-                                (click)="deleteOffice(office)">X</span>
-                            <span class="pull-right office-delete btn-rounded-corners"
-                                (click)="headquarters(office)" [ngClass]="{'office-hq':office.headquarters === true}">hq</span>
+                            {{ office.streetName.slice(0, 10) }}
+                            <span> in {{ office.cityName.slice(0, 8) }}</span>
+                            <span class="pull-right office-delete btn-rounded-corners" (click)="deleteOffice(office)">
+                                <mat-icon>backspace</mat-icon>
+                            </span>
+                            <span class="pull-right office-delete btn-rounded-corners" (click)="headquarters(office)"
+                                [ngClass]="{'office-hq':office.headquarters === true}">
+                                <mat-icon class="roofing">house</mat-icon>
+                            </span>
                         </p>
                     </a>
-                    <button class="btn btn-primary add-button" (click)="addOfficeClick()">
+                    <button class="btn btn-primary add-button " (click)="addOfficeClick()">
                         Add Office
                     </button>
                 </div>
             </div>
-           
+
 
 
 
@@ -67,38 +70,42 @@
                     Employees
                 </h1>
                 <div class="company-menu">
-                        <div>
-    
-                            <mat-accordion>
-                                <mat-expansion-panel hideToggle *ngFor="let employee of employees">
-                                    <mat-expansion-panel-header>
-                                        <mat-panel-title>
-                                            {{ employee.firstName.slice(0, 13) }} {{ employee.lastName.slice(0, 13) }}
-                                        </mat-panel-title>
-                                        <mat-panel-description>
-    
-                                        </mat-panel-description>
-                                    </mat-expansion-panel-header>
-                                    <p><span>exp: </span><i>{{ employee.experience }}</i></p>
-                                    <p><span>Starting Date:
-                                        </span><i>{{ employee.startingDate.toString().slice(0, 10) }}</i>
-                                    </p>
-                                    <p><span>Salary: </span><i>$ {{ employee.salary }}</i></p>
-                                    <p><span>Vacation Days:</span><i>{{ employee.vacationDays }}</i></p>
-                                    <span class="pull-right office-delete btn-rounded-corners"
-                                        (click)="deleteEmployee(employee)">X</span>
-                                    <span class="pull-left office-relocate btn-rounded-corners"
-                                        (click)="relocateEmployeeClick(employee)">relocate</span>
-                                </mat-expansion-panel>
-                            </mat-accordion>
-                        </div>
+                    <div>
+
+                        <mat-accordion>
+                            <mat-expansion-panel hideToggle *ngFor="let employee of employees">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        {{ employee.firstName.slice(0, 13) }} {{ employee.lastName.slice(0, 13) }}
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <p><span>exp: </span><i>{{ employee.experience }}</i></p>
+                                <p><span>Starting Date:
+                                    </span><i>{{ employee.startingDate.toString().slice(0, 10) }}</i>
+                                </p>
+                                <p><span>Salary: </span><i>$ {{ employee.salary }}</i></p>
+                                <p><span>Vacation Days:</span><i>{{ employee.vacationDays }}</i></p>
+                                <span class="pull-right office-delete btn-rounded-corners"
+                                    (click)="deleteEmployee(employee)">
+                                    <mat-icon>backspace</mat-icon>
+                                </span>
+                                <span class="pull-left office-relocate btn-rounded-corners"
+                                    (click)="relocateEmployeeClick(employee)">
+                                    <mat-icon>near_me</mat-icon>
+                                </span>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
                 </div>
-    
+
                 <button class="btn btn-primary add-button" (click)="addEmployeeClick()">
                     Add Employee
                 </button>
             </div>
-            
+
         </div>
     </div>
 </div>

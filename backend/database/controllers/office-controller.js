@@ -2,6 +2,12 @@ const OfficeModel = require('../models/office')
 
 const OfficeController = {
     findAll: (req, res) => {
+        OfficeModel.find()
+            .then((office) => res.send(office))
+            .catch((err) => console.log(err))
+    },
+
+    findAllForCompany: (req, res) => {
         OfficeModel.find({ _companyId: req.params.companyId })
             .then((office) => res.send(office))
             .catch((err) => console.log(err))
