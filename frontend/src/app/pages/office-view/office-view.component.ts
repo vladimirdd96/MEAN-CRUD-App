@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ApiService } from 'src/app/gallery.service';
+import { Gallery } from 'src/app/models/gallery';
 import Company from '../../models/company';
 import Employee from '../../models/employee';
 import Office from '../../models/office';
@@ -14,10 +16,12 @@ export class OfficeViewComponent implements OnInit {
   companies: Company[] = [];
   offices: Office[] = [];
   employees: Employee[] = [];
+  galeries: Gallery[] = []
 
   companyId: string;
   officeId: string;
   employeeId: string;
+  galleryId: string
 
   searchInput = '';
   newSearch = 'No Content';
@@ -32,8 +36,9 @@ export class OfficeViewComponent implements OnInit {
   constructor(
     private officeService: OfficeService,
     private route: ActivatedRoute,
-    private router: Router
-  ) {}
+    private router: Router,
+    private api: ApiService
+  ) { }
 
   ngOnInit(): void {
     this.officeService
@@ -131,6 +136,10 @@ export class OfficeViewComponent implements OnInit {
 
   //Employee
 
+  onEmployeeClick(e: Employee) {
+    this.employeeId = e._id;
+  }
+
   addEmployeeClick() {
     if (!this.companyId || !this.officeId) {
       alert('Please select a office to add employee to!');
@@ -165,7 +174,12 @@ export class OfficeViewComponent implements OnInit {
     ]);
   }
 
-  editEmployee(e: Employee) {}
+  editEmployee(e: Employee) {
+    if (!e) return;
+    this.router.navigate([
+      `/company/${this.companyId}/offices/${this.officeId}/employees/${this.employeeId}/add-photo`,
+    ]);
+  }
 
   onSearchInput = () => {
     this.newSearch = this.searchInput;

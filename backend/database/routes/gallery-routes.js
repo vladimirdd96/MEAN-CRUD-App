@@ -23,11 +23,13 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({
+  storage: storage
+});
 
 // get data by id
-router.get("/:id", function (req, res, next) {
-  Gallery.findById(req.params.id, function (err, gallery) {
+router.get("/company/:companyId/offices/:officeId/employees/:employeeId", function (req, res, next) {
+  Gallery.findById(req.params.employeeId, function (err, gallery) {
     if (err) return next(err);
     res.json(gallery);
   });
@@ -36,7 +38,9 @@ router.get("/:id", function (req, res, next) {
 // post data
 router.post("/", upload.single("file"), function (req, res, next) {
   if (!req.file) {
-    return res.status(500).send({ message: "Upload file" });
+    return res.status(500).send({
+      message: "Upload file"
+    });
   } else {
     req.body.imageUrl = "http://192.168.0.7:3000/images/" + req.file.filename;
     Gallery.create(req.body, function (err, gallery) {
@@ -44,6 +48,7 @@ router.post("/", upload.single("file"), function (req, res, next) {
         console.log(err);
         return next(err);
       }
+      gallery.save()
       res.json(gallery);
     });
   }

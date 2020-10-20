@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../api.service';
-import { Router } from '@angular/router';
+import { ApiService } from '../../gallery.service';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import {
   FormControl,
   FormGroupDirective,
@@ -36,16 +36,21 @@ export class GalleryComponent implements OnInit {
   imageFile: File = null;
   imageTitle = '';
   imageDesc = '';
+  _employeeId: string = '';
   isLoadingResults = false;
   matcher = new MyErrorStateMatcher();
+
+  employeeId: string;
 
   constructor(
     private api: ApiService,
     private formBuilder: FormBuilder,
-    private router: Router
-  ) {}
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe((params: Params) => this.employeeId = params.employeeId)
     this.galleryForm = this.formBuilder.group({
       imageFile: [null, Validators.required],
       imageTitle: [null, Validators.required],
@@ -57,6 +62,7 @@ export class GalleryComponent implements OnInit {
     this.isLoadingResults = true;
     this.api
       .addGallery(
+        this.employeeId,
         this.galleryForm.value,
         this.galleryForm.get('imageFile').value._files[0]
       )
@@ -72,5 +78,9 @@ export class GalleryComponent implements OnInit {
           this.isLoadingResults = false;
         }
       );
+  }
+
+  cancelClick() {
+    this.router.navigate(['../../'], { relativeTo: this.route });
   }
 }

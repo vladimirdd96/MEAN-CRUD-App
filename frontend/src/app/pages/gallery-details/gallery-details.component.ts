@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService } from '../../api.service';
+import { ApiService } from '../../gallery.service';
 import { Gallery } from '../../models/gallery';
 
 @Component({
@@ -15,6 +15,7 @@ export class GalleryDetailsComponent implements OnInit {
     imageTitle: '',
     imageDesc: '',
     uploaded: null,
+    _employeeId: '',
   };
   isLoadingResults = true;
 

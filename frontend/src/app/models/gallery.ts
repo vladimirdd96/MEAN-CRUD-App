@@ -4,4 +4,5 @@ export class Gallery {
   imageTitle: string;
   imageDesc: string;
   uploaded: Date;
+  _employeeId: string;
 }

@@ -73,7 +73,8 @@
                     <div>
 
                         <mat-accordion>
-                            <mat-expansion-panel hideToggle *ngFor="let employee of employees">
+                            <mat-expansion-panel hideToggle *ngFor="let employee of employees"
+                                (click)="onEmployeeClick(employee)">
                                 <mat-expansion-panel-header>
                                     <mat-panel-title>
                                         {{ employee.firstName.slice(0, 13) }} {{ employee.lastName.slice(0, 13) }}
@@ -95,6 +96,10 @@
                                 <span class="pull-left office-relocate btn-rounded-corners"
                                     (click)="relocateEmployeeClick(employee)">
                                     <mat-icon>near_me</mat-icon>
+                                </span>
+                                <span class="pull-right office-relocate btn-rounded-corners"
+                                    (click)="editEmployee(employee)">
+                                    <mat-icon>edit</mat-icon>
                                 </span>
                             </mat-expansion-panel>
                         </mat-accordion>

@@ -8,7 +8,8 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
-import { Gallery } from '../app/models/gallery';
+import { Gallery } from './models/gallery';
+import { ActivatedRoute, Params } from '@angular/router';
 
 const apiUrl =
   'http://localhost:3000/company/:companyId/offices/:officeId/new-employee';
@@ -17,7 +18,11 @@ const apiUrl =
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(private http: HttpClient) {}
+  employeeId: string
+  constructor(
+    private route: ActivatedRoute,
+    private http: HttpClient,
+  ) { this.route.params.subscribe((params: Params) => this.employeeId = params.employeeId) }
 
   private handleError(error: HttpErrorResponse): any {
     if (error.error instanceof ErrorEvent) {
@@ -35,11 +40,12 @@ export class ApiService {
     return this.http.get<Gallery>(url).pipe(catchError(this.handleError));
   }
 
-  addGallery(gallery: Gallery, file: File): Observable<any> {
+  addGallery(employeeId: string, gallery: Gallery, file: File): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('imageTitle', gallery.imageTitle);
     formData.append('imageDesc', gallery.imageDesc);
+    formData.append('_employeeId', employeeId);
     const header = new HttpHeaders();
     const params = new HttpParams();
 
