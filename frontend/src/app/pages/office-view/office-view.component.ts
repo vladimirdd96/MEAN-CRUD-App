@@ -137,6 +137,7 @@ export class OfficeViewComponent implements OnInit {
 
   onEmployeeClick(e: Employee) {
     this.employeeId = e._id;
+    this.selectedItemId = this.employeeId
     if (this.route.toString().includes(`/company/${this.companyId}/offices/${this.officeId}/employees/${this.employeeId}`)) return
     this.router.navigate([`/company/${this.companyId}/offices/${this.officeId}/employees/${this.employeeId}`])
   }
