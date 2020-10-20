@@ -13,7 +13,7 @@ employeeRouter.get(
   EmployeeController.findAllForOffice
 );
 
-// employeeRouter.get('/company/:companyId/offices/:officeId/employees/:employeeId', EmployeeController.findById)
+employeeRouter.get("/company/:companyId/offices/:officeId/employees/:employeeId", EmployeeController.findById)
 
 // employeeRouter.get('/company/:companyId/offices/:officeId/employees/search', EmployeeController.findByFnLn)
 

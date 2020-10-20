@@ -37,7 +37,6 @@ export class OfficeViewComponent implements OnInit {
     private officeService: OfficeService,
     private route: ActivatedRoute,
     private router: Router,
-    private api: ApiService
   ) { }
 
   ngOnInit(): void {
@@ -138,6 +137,8 @@ export class OfficeViewComponent implements OnInit {
 
   onEmployeeClick(e: Employee) {
     this.employeeId = e._id;
+    if (this.route.toString().includes(`/company/${this.companyId}/offices/${this.officeId}/employees/${this.employeeId}`)) return
+    this.router.navigate([`/company/${this.companyId}/offices/${this.officeId}/employees/${this.employeeId}`])
   }
 
   addEmployeeClick() {
@@ -182,53 +183,60 @@ export class OfficeViewComponent implements OnInit {
   }
 
   onSearchInput = () => {
-    this.newSearch = this.searchInput;
-    const foundCompany = this.companies.find((c: Company) =>
-      this.newSearch.toLowerCase().includes(c.name.toLowerCase())
-    );
-    if (foundCompany) {
-      return this.officeService
-        .getOfficees(foundCompany._id)
-        .subscribe(() =>
-          this.router.navigate([`company/${foundCompany._id}/offices`])
-        );
-    }
-
-    const foundOffice = this.officesSearch.find((o: Office) => {
-      o.countryName.toLowerCase().includes(this.newSearch.toLowerCase()) ||
-        o.cityName.toLowerCase().includes(this.newSearch.toLowerCase()) ||
-        o.streetName.toLowerCase().includes(this.newSearch.toLowerCase());
-    });
-    if (foundOffice) {
-      return this.officeService
-        .getEmployees(foundOffice._companyId, foundOffice._id)
-        .subscribe(() =>
-          this.router.navigate([
-            `company/${foundOffice._companyId}/offices/${foundOffice._id}/employees`,
-          ])
-        );
-    }
-
-    const foundEmployee = this.employeeSearch.find((e: Employee) => {
-      this.newSearch.toString().includes(e.firstName) ||
-        this.newSearch.toString().includes(e.lastName);
-    });
-    if (foundEmployee) {
-      let companyForE: Office;
-      companyForE = this.offices.find(
-        (o: Office) => foundEmployee._officeId === o._id
+    const search = () => {
+      this.newSearch = this.searchInput;
+      const foundCompany = this.companies.find((c: Company) =>
+        this.newSearch.toLowerCase().includes(c.name.toLowerCase())
       );
-      return this.officeService
-        .getEmployeeById(
-          companyForE._companyId,
-          foundEmployee._officeId,
-          foundEmployee._id
-        )
-        .subscribe((e: Employee) => {
-          this.router.navigate([
-            `company/${companyForE._companyId}/offices/${e._officeId}/employeesSearch/${e._id}`,
-          ]);
-        });
-    }
-  };
+
+      const foundOffice = this.officesSearch.filter((o: Office) => {
+        return (o.streetName.toLowerCase().includes(this.newSearch.toLowerCase()) ||
+          o.cityName.toLowerCase().includes(this.newSearch.toLowerCase()) ||
+          o.countryName.toLowerCase().includes(this.newSearch.toLowerCase()));
+      });
+
+      const foundEmployee = this.employeeSearch.filter((e: Employee) => {
+        return (e.firstName.toLowerCase().includes(this.newSearch.toLowerCase()) ||
+          e.lastName.toLowerCase().includes(this.newSearch.toLowerCase()));
+      });
+
+      if (foundCompany) {
+        return this.officeService
+          .getOfficees(foundCompany._id)
+          .subscribe(() =>
+            this.router.navigate([`company/${foundCompany._id}/offices`])
+          );
+      }
+
+      if (foundOffice[0]) {
+        return this.officeService
+          .getEmployees(foundOffice[0]._companyId, foundOffice[0]._id)
+          .subscribe(() =>
+            this.router.navigate([
+              `company/${foundOffice[0]._companyId}/offices/${foundOffice[0]._id}/employees`,
+            ])
+          );
+      }
+
+      if (foundEmployee[0]) {
+        const companyForE = this.officesSearch.filter(
+          (o: Office) =>
+            foundEmployee[0]._officeId === o._id
+
+        );
+        return this.officeService
+          .getEmployeeById(
+            companyForE[0]._companyId,
+            foundEmployee[0]._officeId,
+            foundEmployee[0]._id
+          )
+          .subscribe((e: Employee) => {
+            this.router.navigate([
+              `/company/${companyForE[0]._companyId}/offices/${foundEmployee[0]._officeId}/employees/${foundEmployee[0]._id}`,
+            ]);
+          });
+      }
+    };
+    setTimeout(search, 700)
+  }
 }
