@@ -13,12 +13,18 @@ export class NewOfficeComponent implements OnInit {
   companyId: string;
   officeId: string;
 
+  countryNameInput: string
+  cityNameInput: string
+  streetNameInput: string
+  streetNumberInput: number
+  ifHeadquartersInput: boolean
+
   constructor(
     private officeService: OfficeService,
     private router: Router,
     private route: ActivatedRoute,
     private http: HttpClient
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
@@ -26,20 +32,14 @@ export class NewOfficeComponent implements OnInit {
       this.companyId = params.companyId;
     });
   }
-  addOffice(
-    countryName: string,
-    cityName: string,
-    streetName: string,
-    streetNumber: number,
-    headquarters: boolean
-  ) {
+  addOffice() {
     this.officeService
       .createOffice(
-        countryName,
-        cityName,
-        streetName,
-        streetNumber,
-        headquarters,
+        this.countryNameInput,
+        this.cityNameInput,
+        this.streetNameInput,
+        this.streetNumberInput,
+        this.ifHeadquartersInput,
         this.companyId
       )
       .subscribe((o: Office) =>

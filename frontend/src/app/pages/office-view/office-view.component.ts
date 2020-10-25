@@ -26,11 +26,10 @@ export class OfficeViewComponent implements OnInit {
   searchInput = '';
   newSearch = 'No Content';
 
-  companiesSearch: Company[];
   officesSearch: Office[];
   employeeSearch: Employee[];
 
-  selectedItemId: string;
+  selectedOfficeId: string;
   selectedEmployeeId: string;
 
   constructor(
@@ -47,7 +46,7 @@ export class OfficeViewComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.companyId = params.companyId;
       this.officeId = params.officeId;
-      this.selectedItemId = this.officeId;
+      this.selectedOfficeId = this.officeId;
 
       this.employeeId = params.employeeId;
       this.selectedEmployeeId = this.employeeId;
@@ -56,8 +55,8 @@ export class OfficeViewComponent implements OnInit {
       this.officeService
         .getOfficees(this.companyId)
         .subscribe((offices: Office[]) => {
-          this.offices = offices = offices.filter(
-            (o) => o._companyId === this.companyId
+          this.offices = offices.filter(
+            (o: Office) => o._companyId === this.companyId
           );
         });
       if (!this.officeId || !this.companyId) return;
@@ -125,7 +124,7 @@ export class OfficeViewComponent implements OnInit {
       .subscribe(
         (employees: Employee[]) =>
           (this.employees = employees.filter(
-            (employee: Employee) => employee._officeId === officeId
+            (employee: Employee) => employee._officeId._id === officeId
           ))
       );
     this.router.navigate([
@@ -135,10 +134,10 @@ export class OfficeViewComponent implements OnInit {
 
   //Employee
 
-  onEmployeeClick(e: Employee) {
+  onExpand(e: Employee) {
     this.employeeId = e._id;
-    this.selectedItemId = this.employeeId
-    if (this.route.toString().includes(`/company/${this.companyId}/offices/${this.officeId}/employees/${this.employeeId}`)) return
+    this.selectedOfficeId = this.employeeId
+    // if (this.route.toString().includes(`/company/${this.companyId}/offices/${this.officeId}/employees/${this.employeeId}`)) return
     this.router.navigate([`/company/${this.companyId}/offices/${this.officeId}/employees/${this.employeeId}`])
   }
 
@@ -179,7 +178,7 @@ export class OfficeViewComponent implements OnInit {
   editEmployee(e: Employee) {
     if (!e) return;
     this.router.navigate([
-      `/company/${this.companyId}/offices/${this.officeId}/employees/${this.employeeId}/add-photo`,
+      `/company/${this.companyId}/offices/${this.officeId}/employees/${e._id}/add-photo`,
     ]);
   }
 
@@ -211,31 +210,27 @@ export class OfficeViewComponent implements OnInit {
 
       if (foundOffice[0]) {
         return this.officeService
-          .getEmployees(foundOffice[0]._companyId, foundOffice[0]._id)
+          .getEmployees(foundOffice[0]._companyId._id, foundOffice[0]._id)
           .subscribe(() =>
             this.router.navigate([
-              `company/${foundOffice[0]._companyId}/offices/${foundOffice[0]._id}/employees`,
+              `company/${foundOffice[0]._companyId._id}/offices/${foundOffice[0]._id}/employees`,
             ])
           );
       }
 
       if (foundEmployee[0]) {
-        const companyForE = this.officesSearch.filter(
-          (o: Office) =>
-            foundEmployee[0]._officeId === o._id
-
-        );
+        const companyForE = foundEmployee[0]._officeId._companyId;
+        console.log(companyForE);
+        console.log(foundEmployee[0])
+        this.router.navigate([
+          `/company/${companyForE}/offices/${foundEmployee[0]._officeId._id}/employees/${foundEmployee[0]._id}`,
+        ]);
         return this.officeService
           .getEmployeeById(
-            companyForE[0]._companyId,
-            foundEmployee[0]._officeId,
-            foundEmployee[0]._id
+            companyForE,
+            foundEmployee[0]._officeId._id,
+            foundEmployee[0]._id,
           )
-          .subscribe((e: Employee) => {
-            this.router.navigate([
-              `/company/${companyForE[0]._companyId}/offices/${foundEmployee[0]._officeId}/employees/${foundEmployee[0]._id}`,
-            ]);
-          });
       }
     };
     setTimeout(search, 700)

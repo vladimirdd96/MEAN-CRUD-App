@@ -10,5 +10,14 @@ export default class Employee {
     mid: 'mid';
     senior: 'senior';
   };
-  _officeId: string;
+  _officeId: {
+    _id: string;
+    countryName: string;
+    cityName: string;
+    streetName: string;
+    streetNumber: string;
+    headquarters: boolean;
+    _companyId: string;
+    _employeesId: string[];
+  };
 }

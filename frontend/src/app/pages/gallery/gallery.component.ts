@@ -36,11 +36,12 @@ export class GalleryComponent implements OnInit {
   imageFile: File = null;
   imageTitle = '';
   imageDesc = '';
-  _employeeId: string = '';
   isLoadingResults = false;
   matcher = new MyErrorStateMatcher();
 
   employeeId: string;
+  companyId: string
+  officeId: string
 
   constructor(
     private api: ApiService,
@@ -50,6 +51,8 @@ export class GalleryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe((params: Params) => this.companyId = params.companyId)
+    this.route.params.subscribe((params: Params) => this.officeId = params.officeId)
     this.route.params.subscribe((params: Params) => this.employeeId = params.employeeId)
     this.galleryForm = this.formBuilder.group({
       imageFile: [null, Validators.required],
@@ -62,6 +65,8 @@ export class GalleryComponent implements OnInit {
     this.isLoadingResults = true;
     this.api
       .addGallery(
+        this.companyId,
+        this.officeId,
         this.employeeId,
         this.galleryForm.value,
         this.galleryForm.get('imageFile').value._files[0]
@@ -69,9 +74,9 @@ export class GalleryComponent implements OnInit {
       .subscribe(
         (res: any) => {
           this.isLoadingResults = false;
-          if (res.body) {
-            // this.router.navigate(['/gallery-details', res.body._id]);
-          }
+          // this.router.navigate([`/comoany/${this.companyId}/offices/${this.officeId}/employees`]);
+          // if (res.body) {
+          // }
         },
         (err: any) => {
           console.log(err);

@@ -4,14 +4,15 @@ const OfficeController = require("../controllers/office-controller");
 
 const officeRouter = express.Router();
 
-//Search
-officeRouter.get("/offices", OfficeController.findAll);
 
 //Office
 officeRouter.get(
   "/company/:companyId/offices",
   OfficeController.findAllForCompany
 );
+
+//Search
+officeRouter.get("/offices", OfficeController.findAll);
 
 // officeRouter.get('/company/:companyId/offices/:officeId/employees', OfficeController.findById)
 

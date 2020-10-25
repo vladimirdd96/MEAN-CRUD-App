@@ -26,6 +26,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { GalleryDetailsComponent } from './pages/gallery-details/gallery-details.component';
+import { FilterPipe } from './filter.pipe';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { GalleryDetailsComponent } from './pages/gallery-details/gallery-details
     SearchComponent,
     GalleryComponent,
     GalleryDetailsComponent,
+    FilterPipe,
   ],
   imports: [
     BrowserModule,

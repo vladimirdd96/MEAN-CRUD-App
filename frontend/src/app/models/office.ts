@@ -5,6 +5,11 @@ export default class Office {
   streetName: string;
   streetNumber: string;
   headquarters: boolean;
-  _companyId: string;
+  _companyId: {
+    _id: string;
+    name: string;
+    creationDate: Date;
+    _officesId: string
+  }
   _employeesId: string[];
 }

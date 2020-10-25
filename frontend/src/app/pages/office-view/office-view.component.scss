@@ -328,3 +328,7 @@ mat-expansion-indicator {
 .search-form {
   margin-top: 3px !important;
 }
+
+::selection {
+background-color: #00000000;
+}

@@ -12,6 +12,9 @@ export class NewCompanyComponent implements OnInit {
   companyId: string;
   officeId: string;
 
+  companyNameInput: string
+  companyCreationDateInput: Date
+
   constructor(
     private officeService: OfficeService,
     private router: Router,
@@ -23,11 +26,11 @@ export class NewCompanyComponent implements OnInit {
     // })
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
-  addCompany(name: string, creationDate: Date) {
+  addCompany() {
     this.officeService
-      .createCompany(name, creationDate)
+      .createCompany(this.companyNameInput, this.companyCreationDateInput)
       .subscribe((company: Company) =>
         this.router.navigate([`../${company._id}/offices`], {
           relativeTo: this.route,

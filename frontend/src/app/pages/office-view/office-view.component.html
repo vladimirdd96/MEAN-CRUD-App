@@ -36,7 +36,7 @@
                 </h1>
                 <div class="office-menu">
                     <a class="office office-menu-item" *ngFor="let office of offices"
-                        [ngClass]="{'is-active':selectedItemId == office._id}">
+                        [ngClass]="{'is-active':selectedOfficeId == office._id}">
                         <p class="white-text" (click)="getEmployees(office._id)">
                             {{ office.streetName.slice(0, 10) }}
                             <span> in {{ office.cityName.slice(0, 8) }}</span>
@@ -74,7 +74,7 @@
 
                         <mat-accordion>
                             <mat-expansion-panel showToggle *ngFor="let employee of employees"
-                                (click)="onEmployeeClick(employee)">
+                                (expanded)="onExpand(employee)">
                                 <mat-expansion-panel-header>
                                     <mat-panel-title>
                                         {{ employee.firstName.slice(0, 13) }} {{ employee.lastName.slice(0, 13) }}

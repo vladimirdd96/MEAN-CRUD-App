@@ -29,14 +29,14 @@ const upload = multer({
 
 // get data by id
 router.get("/company/:companyId/offices/:officeId/employees/:employeeId", function (req, res, next) {
-  Gallery.findById(req.params.employeeId, function (err, gallery) {
+  Gallery.find({ _employeeId: req.params.employeeId }, function (err, gallery) {
     if (err) return next(err);
     res.json(gallery);
   });
 });
 
 // post data
-router.post("/", upload.single("file"), function (req, res, next) {
+router.post("/company/:companyId/offices/:officeId/employees/:employeeId/add-photo", upload.single("file"), function (req, res, next) {
   if (!req.file) {
     return res.status(500).send({
       message: "Upload file"

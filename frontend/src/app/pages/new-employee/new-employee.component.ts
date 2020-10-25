@@ -15,6 +15,17 @@ export class NewEmployeeComponent implements OnInit {
 
   selectedFile: File = null;
 
+  employeeFirstNameInput: string
+  employeeLastNameInput: string
+  employeeStaringDateInput: Date
+  employeeSalaryInput: number
+  employeeVacationDaysInput: number
+  employeeExperienceInput: {
+    junior: 'junior',
+    mid: 'mid',
+    senior: 'senior'
+  }
+
   constructor(
     private officeService: OfficeService,
     private router: Router,
@@ -27,28 +38,17 @@ export class NewEmployeeComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
-  addEmployee(
-    firstName: string,
-    lastName: string,
-    startingDate: Date,
-    salary: number,
-    vacationDays: number,
-    experience: {
-      junior: 'junior';
-      mid: 'mid';
-      senior: 'senior';
-    }
-  ) {
+  addEmployee() {
     this.officeService
       .createEmployee(
-        firstName,
-        lastName,
-        startingDate,
-        salary,
-        vacationDays,
-        experience,
+        this.employeeFirstNameInput,
+        this.employeeLastNameInput,
+        this.employeeStaringDateInput,
+        this.employeeSalaryInput,
+        this.employeeVacationDaysInput,
+        this.employeeExperienceInput,
         this.companyId,
         this.officeId
       )

@@ -11,14 +11,13 @@ import { catchError } from 'rxjs/operators';
 import { Gallery } from './models/gallery';
 import { ActivatedRoute, Params } from '@angular/router';
 
-const apiUrl =
-  'http://localhost:3000/company/:companyId/offices/:officeId/new-employee';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
   employeeId: string
+  apiUrl = 'http://localhost:3000/';
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
@@ -36,16 +35,16 @@ export class ApiService {
   }
 
   getGalleryById(id: string): Observable<any> {
-    const url = `${apiUrl}/${id}`;
+    const url = `${this.apiUrl}/${id}`;
     return this.http.get<Gallery>(url).pipe(catchError(this.handleError));
   }
 
-  addGallery(employeeId: string, gallery: Gallery, file: File): Observable<any> {
+  addGallery(companyId: string, officeId: string, employeeId: string, gallery: Gallery, file: File): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('imageTitle', gallery.imageTitle);
     formData.append('imageDesc', gallery.imageDesc);
-    formData.append('_employeeId', employeeId);
+    formData.append('_employeeId', this.employeeId);
     const header = new HttpHeaders();
     const params = new HttpParams();
 
@@ -54,7 +53,8 @@ export class ApiService {
       reportProgress: true,
       headers: header,
     };
-    const req = new HttpRequest('POST', apiUrl, formData, options);
+    this.apiUrl += `company/${companyId}/offices/${officeId}/employees/${this.employeeId}/add-photo`
+    const req = new HttpRequest('POST', this.apiUrl, formData, options);
     return this.http.request(req);
   }
 }

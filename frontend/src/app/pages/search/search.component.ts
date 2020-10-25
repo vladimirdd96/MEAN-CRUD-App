@@ -23,7 +23,7 @@ export class SearchComponent implements OnInit {
     private officeService: OfficeService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.officeService
@@ -54,14 +54,14 @@ export class SearchComponent implements OnInit {
   onSearchInput = () => {
     this.newSearch = this.searchInput;
     console.log('searching for input', this.newSearch);
-    const foundCompany = this.companiesSearch.find((c: Company) =>
-      this.newSearch.toString().includes(c.name)
+    const foundCompany = this.companiesSearch.filter((c: Company) =>
+      c.name.toLowerCase().includes(this.newSearch.toLowerCase())
     );
     if (foundCompany) {
       return this.officeService
-        .getOfficees(foundCompany._id)
+        .getOfficees(foundCompany[0]._id)
         .subscribe(() =>
-          this.router.navigate([`company/${foundCompany._id}/offices`])
+          this.router.navigate([`company/${foundCompany[0]._id}/offices`])
         );
     }
 
@@ -72,7 +72,7 @@ export class SearchComponent implements OnInit {
     });
     if (foundOffice) {
       return this.officeService
-        .getEmployees(foundOffice._companyId, foundOffice._id)
+        .getEmployees(foundOffice._companyId._id, foundOffice._id)
         .subscribe(() =>
           this.router.navigate([
             `company/${foundOffice._companyId}/offices/${foundOffice._id}/employees`,
@@ -87,12 +87,12 @@ export class SearchComponent implements OnInit {
     if (foundEmployee) {
       let companyForE;
       companyForE = this.officesSearch.find(
-        (o: Office) => foundEmployee._officeId === o._id
+        (o: Office) => foundEmployee._officeId._id === o._id
       );
       return this.officeService
         .getEmployeeById(
           companyForE._companyId,
-          foundEmployee._officeId,
+          foundEmployee._officeId._id,
           foundEmployee._id
         )
         .subscribe((e: Employee) => {
