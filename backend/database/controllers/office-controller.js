@@ -10,21 +10,21 @@ const OfficeController = {
 
     findAllForCompany: (req, res) => {
         OfficeModel.find({ _companyId: req.params.companyId })
-            .populate('_officeId')
+            .populate('_companyId')
             .then((office) => res.send(office))
             .catch((err) => console.log(err))
     },
 
     findByCountryCityStreet: (req, res) => {
         OfficeModel.find({ $or: [{ countryName: { $eq: req.body.countryName } }, { cityName: { $eq: req.body.cityName } }, { streetName: { $eq: req.body.streetName } }] })
-            .populate('_officeId')
+            .populate('_companyId')
             .then(office => res.send(office))
             .catch(err => console.log(err))
     },
 
     findById: (req, res) => {
         OfficeModel.find({ _id: req.params.officeId })
-            .populate('_officeId')
+            .populate('_companyId')
             .then(office => res.send(office))
             .catch(err => console.log(err))
     },

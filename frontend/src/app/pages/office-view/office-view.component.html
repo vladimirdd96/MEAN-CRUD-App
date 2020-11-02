@@ -1,3 +1,8 @@
+
+
+<div class="centered-content">
+
+
 <form class="form-inline waves-light search-form" mdbWavesEffect>
     <div class="md-form mt-0 search-div">
         <input class="form-control mr-sm-2 search-form-control" type="text" placeholder="Search" name="search"
@@ -6,7 +11,6 @@
 </form>
 
 
-<div class="centered-content">
     <div class="office-manager-container">
         <div class="sidebar">
             <h1 class="title has-text-primary">
@@ -89,17 +93,21 @@
                                 </p>
                                 <p><span>Salary: </span><i>$ {{ employee.salary }}</i></p>
                                 <p><span>Vacation Days:</span><i>{{ employee.vacationDays }}</i></p>
-                                <span class="pull-right office-delete btn-rounded-corners"
-                                    (click)="deleteEmployee(employee)">
-                                    <mat-icon>backspace</mat-icon>
-                                </span>
                                 <span class="pull-left office-relocate btn-rounded-corners"
                                     (click)="relocateEmployeeClick(employee)">
                                     <mat-icon>near_me</mat-icon>
                                 </span>
-                                <span class="pull-right office-relocate btn-rounded-corners"
+                                <span class="pull-left office-relocate btn-rounded-corners"
                                     (click)="editEmployee(employee)">
                                     <mat-icon>edit</mat-icon>
+                                </span>
+                                <span class="pull-right office-delete btn-rounded-corners"
+                                    (click)="deleteEmployee(employee)">
+                                    <mat-icon>backspace</mat-icon>
+                                </span>
+                                <span class="pull-right office-relocate btn-rounded-corners"
+                                    (click)="addPhoto(employee)">
+                                    <mat-icon>wallpaper</mat-icon>
                                 </span>
                             </mat-expansion-panel>
                         </mat-accordion>

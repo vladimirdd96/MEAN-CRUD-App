@@ -56,7 +56,7 @@ export class OfficeViewComponent implements OnInit {
         .getOfficees(this.companyId)
         .subscribe((offices: Office[]) => {
           this.offices = offices.filter(
-            (o: Office) => o._companyId === this.companyId
+            (o: Office) => o._companyId._id === this.companyId
           );
         });
       if (!this.officeId || !this.companyId) return;
@@ -175,11 +175,15 @@ export class OfficeViewComponent implements OnInit {
     ]);
   }
 
-  editEmployee(e: Employee) {
+  addPhoto(e: Employee) {
     if (!e) return;
     this.router.navigate([
       `/company/${this.companyId}/offices/${this.officeId}/employees/${e._id}/add-photo`,
     ]);
+  }
+
+  editEmployee(e: Employee) {
+    this.router.navigate([`/company/${this.companyId}/offices/${this.officeId}/employees/${e._id}/profile`])
   }
 
   onSearchInput = () => {
@@ -220,8 +224,8 @@ export class OfficeViewComponent implements OnInit {
 
       if (foundEmployee[0]) {
         const companyForE = foundEmployee[0]._officeId._companyId;
-        console.log(companyForE);
-        console.log(foundEmployee[0])
+        // console.log(companyForE);
+        // console.log(foundEmployee[0])
         this.router.navigate([
           `/company/${companyForE}/offices/${foundEmployee[0]._officeId._id}/employees/${foundEmployee[0]._id}`,
         ]);

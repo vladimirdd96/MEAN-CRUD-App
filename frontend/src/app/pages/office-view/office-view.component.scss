@@ -1,5 +1,10 @@
 @import "../../../styles.scss";
 
+.centered-content {
+  display: flex;
+  flex-direction: column;
+}
+
 .office-manager-container {
   display: flex;
   font-size: 12px;
@@ -8,6 +13,7 @@
   height: 100%;
   max-width: 900px;
   max-height: 500px;
+  justify-self: center;
 }
 
 .sidebar {
@@ -327,6 +333,8 @@ mat-expansion-indicator {
 
 .search-form {
   margin-top: 3px !important;
+  position: absolute;
+  top: 5px;
 }
 
 ::selection {

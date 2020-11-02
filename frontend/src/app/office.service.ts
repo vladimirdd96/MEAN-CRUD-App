@@ -138,6 +138,10 @@ export class OfficeService {
     );
   }
 
+  // updateEmployee(companyId: string, officeId: string, employeeId: string) {
+  //   return this.webService.patch(`company/${companyId}/offices/${officeId}/employees/${employeeId}`, {})
+  // }
+
   deleteEmployee(companyId: string, officeId: string, employeeId: string) {
     return this.webService.delete(
       `company/${companyId}/offices/${officeId}/employees/${employeeId}`
