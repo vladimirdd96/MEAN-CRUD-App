@@ -16,14 +16,11 @@ const galleryRouter = require("./database/routes/gallery-routes");
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Methods",
-    "POST, GET, PUT, HEAD, PATCH, DELETE, OPTIONS"
-  );
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Request-With, Content-Type, Accept"
-  );
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Max-Age", "1800");
+  res.header("Access-Control-Allow-Headers", "content-type");
+  res.header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS");
+  // res.header("Content-Type", "application/json;charset=utf-8"); // Opening this comment will cause problems
   next();
 });
 

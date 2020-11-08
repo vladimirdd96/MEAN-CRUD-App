@@ -6,7 +6,7 @@ import { WebService } from './web.service';
   providedIn: 'root',
 })
 export class OfficeService {
-  constructor(private webService: WebService) {}
+  constructor(private webService: WebService) { }
 
   //search
   getCompaniesSearch() {
@@ -138,9 +138,29 @@ export class OfficeService {
     );
   }
 
-  // updateEmployee(companyId: string, officeId: string, employeeId: string) {
-  //   return this.webService.patch(`company/${companyId}/offices/${officeId}/employees/${employeeId}`, {})
-  // }
+  updateEmployee(
+    fName: string,
+    lName: string,
+    sDate: Date,
+    s: number,
+    vDays: number,
+    e: { junior: 'junior'; mid: 'mid'; senior: 'senior' },
+    companyId: string,
+    officeId: string,
+    employeeId: string
+  ) {
+    return this.webService.patch(
+      `company/${companyId}/offices/${officeId}/employees/${employeeId}`,
+      {
+        firstName: fName,
+        lastName: lName,
+        startingDate: sDate,
+        salary: s,
+        vacationDays: vDays,
+        experience: e,
+      }
+    );
+  }
 
   deleteEmployee(companyId: string, officeId: string, employeeId: string) {
     return this.webService.delete(

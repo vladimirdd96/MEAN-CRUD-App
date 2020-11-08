@@ -27,7 +27,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { GalleryDetailsComponent } from './pages/gallery-details/gallery-details.component';
 import { FilterPipe } from './filter.pipe';
-// import { ProfileComponent } from './pages/profile/profile.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +41,7 @@ import { FilterPipe } from './filter.pipe';
     GalleryComponent,
     GalleryDetailsComponent,
     FilterPipe,
-    // ProfileComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,4 +66,4 @@ import { FilterPipe } from './filter.pipe';
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

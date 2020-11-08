@@ -44,7 +44,6 @@ export class ApiService {
     formData.append('file', file);
     formData.append('imageTitle', gallery.imageTitle);
     formData.append('imageDesc', gallery.imageDesc);
-    formData.append('_employeeId', this.employeeId);
     const header = new HttpHeaders();
     const params = new HttpParams();
 
@@ -53,7 +52,7 @@ export class ApiService {
       reportProgress: true,
       headers: header,
     };
-    this.apiUrl += `company/${companyId}/offices/${officeId}/employees/${this.employeeId}/add-photo`
+    this.apiUrl += `company/${companyId}/offices/${officeId}/employees/${employeeId}/add-photo`
     const req = new HttpRequest('POST', this.apiUrl, formData, options);
     return this.http.request(req);
   }

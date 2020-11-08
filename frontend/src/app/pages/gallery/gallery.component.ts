@@ -51,9 +51,11 @@ export class GalleryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => this.companyId = params.companyId)
-    this.route.params.subscribe((params: Params) => this.officeId = params.officeId)
-    this.route.params.subscribe((params: Params) => this.employeeId = params.employeeId)
+    this.route.params.subscribe((params: Params) => {
+      this.companyId = params.companyId
+      this.officeId = params.officeId
+      this.employeeId = params.employeeId
+    })
     this.galleryForm = this.formBuilder.group({
       imageFile: [null, Validators.required],
       imageTitle: [null, Validators.required],

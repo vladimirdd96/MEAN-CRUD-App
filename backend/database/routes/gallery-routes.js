@@ -43,6 +43,7 @@ router.post("/company/:companyId/offices/:officeId/employees/:employeeId/add-pho
     });
   } else {
     req.body.imageUrl = "http://192.168.0.7:3000/images/" + req.file.filename;
+    req.body.employeeId = req.params.employeeId;
     Gallery.create(req.body, function (err, gallery) {
       if (err) {
         console.log(err);

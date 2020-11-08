@@ -39,9 +39,9 @@ const EmployeeController = {
     },
 
     findById: (req, res) => {
-        EmployeeModel.find({
-            _id: req.params.employeeId
-        })
+        EmployeeModel.findById(
+            req.params.employeeId
+        )
             .populate('_officeId')
             .then(employee => res.send(employee))
             .catch(err => console.log(err))

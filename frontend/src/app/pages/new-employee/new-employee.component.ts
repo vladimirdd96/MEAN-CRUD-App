@@ -15,6 +15,8 @@ export class NewEmployeeComponent implements OnInit {
 
   selectedFile: File = null;
 
+  experience = ['junior', 'mid', 'senior',]
+
   employeeFirstNameInput: string
   employeeLastNameInput: string
   employeeStaringDateInput: Date

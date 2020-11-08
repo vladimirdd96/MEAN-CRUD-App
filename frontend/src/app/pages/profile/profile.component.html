@@ -1,23 +1,20 @@
 <div class="centered-content">
     <div class="model-box form-group">
-        <h1 class="title">Create a new employee item</h1>
-        <input [(ngModel)]="employeeFirstNameInput" nametype="text" class="form-control has-background-light"
-            [value]="employeeFirstNameInput">
-        <input [(ngModel)]="employeeLastNameInput" nametype="text" class="form-control has-background-light"
-            placeholder="Enter last name">
-        <input [(ngModel)]="employeeStaringDateInput" nametype="text" class="form-control has-background-light"
-            placeholder="Enter starting date">
-        <input [(ngModel)]="employeeSalaryInput" nametype="text" class="form-control has-background-light"
-            placeholder="Enter salary">
-        <input [(ngModel)]="employeeVacationDaysInput" nametype="text" class="form-control has-background-light"
-            placeholder="Enter vacation days">
-        <input [(ngModel)]="employeeExperienceInput" nametype="text" class="form-control has-background-light"
-            placeholder="Enter experience {junior, mid, senior}">
+        <h1 class="title">Edit Employee</h1>
+        <input [(ngModel)]="employeeFirstNameInput" nametype="text" class="form-control has-background-light">
+        <input [(ngModel)]="employeeLastNameInput" nametype="text" class="form-control has-background-light">
+        <input [(ngModel)]="employeeStaringDateInput.toString().split('T')[0]" nametype="text"
+            class="form-control has-background-light" type="date">
+        <input [(ngModel)]="employeeSalaryInput" nametype="text" class="form-control has-background-light">
+        <input [(ngModel)]="employeeVacationDaysInput" nametype="text" class="form-control has-background-light">
+        <select [(ngModel)]="employeeExperienceInput" nametype="text" class="form-control has-background-light">
+            <option *ngFor="let x of experience">{{x}}</option>
+        </select>
         <!-- <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
         <button class="btn btn-white-text" (click)="fileInput.click()">Select File</button>
         <button class="btn btn-primary" (click)="onUpload()">Upload!</button> -->
 
         <button class="btn btn-white-text" (click)="backClick()">Cansel</button>
-        <button class="btn btn-primary" (click)="editEmployee()">Add</button>
+        <button class="btn btn-primary" (click)="editEmployee()">Edit</button>
     </div>
 </div>
