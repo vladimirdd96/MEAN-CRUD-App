@@ -8,7 +8,6 @@ level (junior, mid, senior) and image. Also, employees may work from different o
 relocate for a summer. All fields are required.
 Add search to all entiess, for companies search by name, for offices search by country, city or street and 
 for employees search by first name or last name.
-Bonus: Add real-time notifications to the company and office page when some employee is added. The notfications should be received without refreshing the page.<br>
 <br>
 Requirements: <br>
 ● Frontend: preferably Angular,<br>
