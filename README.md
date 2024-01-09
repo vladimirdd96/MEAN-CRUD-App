@@ -1,16 +1,6 @@
-&emsp;The task is to develop a web application written in nodejs. The application should provide a possibility for
-users to CRUD companies, offices and employees.
-One company should have a name and creaton date. One company may have different offices, the office
-should have a country, city, street, street number, documents (only word files and pdf) and if it is the
-headquarters or not.
-An employee should have a first name, last name starting date, salary, vacation days, and experience
-level (junior, mid, senior) and image. Also, employees may work from different offices, if they like to
-relocate for a summer. All fields are required.
-Add search to all entiess, for companies search by name, for offices search by country, city or street and 
-for employees search by first name or last name.
+The assigned task entailed the development of a sophisticated web application scripted in NodeJs. This dynamic application affords users the capability to seamlessly perform CRUD operations on companies, offices, and employees. A company, characterized by a name and creation date, may host multiple offices, each defined by country, city, street, street number, documents (restricted to word files and PDFs), and headquarters status. Employees, possessing attributes such as first name, last name, start date, salary, vacation days, experience level (junior, mid, senior), and image, can work across different offices, offering the flexibility of relocation for summer. The application mandates completeness with all fields being mandatory. Moreover, an efficient search functionality is integrated across all entities, enabling users to search companies by name, offices by country, city, or street, and employees by first name or last name.<br>
 <br>
-Requirements: <br>
+Requirements:<br>
 ● Frontend: preferably Angular,<br>
-● Backend: node js preferably REST API<br>
+● Backend: NodeJS preferably REST API<br>
 ● Database: your choice<br>
-● Write unit tests
